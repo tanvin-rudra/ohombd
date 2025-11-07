@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             id: 4,
             name: "panjabi",
-            price: 79.99,
+            price: 1299,
             oldPrice: null,
             image: "assets/fp 4.jpg",
             category: "Women",
@@ -225,7 +225,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 201,
             name: "ভিআইপি সিল্ক",
             category: "creative",
-            price: 89.99,
+            price: 1299,
             oldPrice: 1199,
             discount: "25% OFF",
             image: "assets/last p 7.jpg",
@@ -1091,4 +1091,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     init();
+
 });
