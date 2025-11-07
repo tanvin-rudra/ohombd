@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>StyleVogue | Fashion E-commerce</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <div class="logo"><img src="assets/Gemini_Generated_Image_uqnm26uqnm26uqnm.png" alt=""></div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search for products...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <div class="header-actions">
+                    <div class="header-action">
+                        <i class="far fa-user"></i>
+                        <span>Account</span>
+                    </div>
+                    <div class="header-action">
+                        <i class="far fa-heart"></i>
+                        <span>Wishlist</span>
+                    </div>
+                    <div class="header-action cart-icon" id="cart-icon">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span>Cart</span>
+                        <span class="cart-count">0</span>
+                    </div>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">shop</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cart-modal">
+        <div class="cart-modal-content">
+            <div class="cart-header">
+                <h3>Your Shopping Cart</h3>
+                <span class="close-cart" id="close-cart">&times;</span>
+            </div>
+            <div class="cart-items" id="cart-items">
+                <!-- Cart items will be dynamically inserted here -->
+                <div class="empty-cart-message" id="empty-cart-message">
+                    <i class="fas fa-shopping-bag"></i>
+                    <p>Your cart is empty</p>
+                    <a href="#" class="btn">Continue Shopping</a>
+                </div>
+            </div>
+            <div class="cart-summary" id="cart-summary">
+                <div class="cart-total">
+                    <span>Total: $<span id="cart-total-price">0.00</span></span>
+                </div>
+                <div class="cart-actions">
+                    <button class="btn btn-secondary" id="continue-shopping">Continue Shopping</button>
+                   <a href="checkout.html"><button class="btn" id="checkout-btn">Proceed to Checkout</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-box large">
+                    <img src="assets/main hero.jpg" alt="Summer Collection">
+                    <div class="sale-badge">UP TO 50% OFF</div>
+                    <div class="hero-content">
+                        <h1>অহম - বাংলার সংস্কৃতি আর ঐতিহ্যের অহংকার।</h1>
+                        <p>Discover the latest trends in fashion with our exclusive collection.</p>
+                        <a href="shop.html" class="btn">Shop Now</a>
+                    </div>
+                </div>
+                <div class="hero-box small">
+                    <img src="assets/hero sm 1.jpg" alt="Men's Fashion">
+                    <div class="hero-content">
+                        <h2>traditional</h2>
+                        <p>New arrivals for the season</p>
+                        <a href="shop.html" class="btn">Explore</a>
+                    </div>
+                </div>
+                <div class="hero-box small">
+                    <img src="assets/sm hero image 3.jpg" alt="Women's Accessories">
+                    <div class="hero-content">
+                        <h2>শাড়ি</h2>
+                        <p>Complete your look with style</p>
+                        <a href="shop.html" class="btn">Discover</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Shop By Category</h2>
+                <p>Explore our wide range of fashion categories</p>
+            </div>
+            <div class="categories">
+                <div class="category">
+                    <img src="assets/categori 1.jpg" alt="Women's Fashion">
+                    <div class="category-content">
+                        <h3>তাঁত কটন</h3>
+                        <p>Shop Now</p>
+                    </div>
+                </div>
+                
+                <div class="category">
+                    <img src="assets/cateory 2.jpg" alt="Men's Fashion">
+                    <div class="category-content">
+                        <h3>তাঁত কটন</h3>
+                        <p>Shop Now</p>
+                    </div>
+                </div>
+                <div class="category">
+                    <img src="assets/categori 3.jpg" alt="Accessories">
+                    <div class="category-content">
+                        <h3>সফট সিল্ক</h3>
+                        <p>Shop Now</p>
+                    </div>
+                </div>
+                <div class="category">
+                    <img src="assets/products 1.jpg" alt="Footwear">
+                    <div class="category-content">
+                        <h3>পাঞ্জাবি</h3>
+                        <p>Shop Now</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Promo Banner Section -->
+    <section class="promo-banner">
+        <div class="container">
+            <div class="banner-grid">
+                <div class="banner-box promo-code">
+                    <div class="banner-image"></div>
+                    <div class="banner-content">
+                        <h3>akways open</h3>
+                        <p>24 hours open</p>
+                        <div class="promo-code-display">
+                            <span>OHOM</span>
+                        </div>
+                        <div class="promo-note">
+                            *Not contained with promotional offers and discounts.*
+                        </div>
+                    </div>
+                </div>
+                <div class="banner-box free-delivery">
+                    <div class="banner-image"></div>
+                    <div class="banner-content">
+                        <h3>beautiful and creative</h3>
+                        <p>To Your Door</p>
+                        <div class="delivery-info">
+                            <p>বাংলার নারীর রূপ, লাবণ্য আর ব্যক্তিত্বের অহংকারকে গুছিয়ে নেয়ার প্রয়াসে - অহম!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+
+    <!-- Featured Products Section -->
+    <section class="section" style="background-color: #f8f9fa;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Featured Products</h2>
+                <p>Check out our best selling items</p>
+            </div>
+            <div class="products" id="featured-products">
+                <!-- Products will be dynamically inserted here by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Discount Section -->
+    <section class="discount-section">
+        <div class="container">
+            <div class="discount-header">
+                <div class="discount-title">
+                    <h2>Weekly Discounts</h2>
+                    <p>Limited time offers on selected products</p>
+                </div>
+                <div class="discount-slider-controls">
+                    <button class="slider-btn prev-btn">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="slider-btn next-btn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="discount-slider">
+                <div class="discount-slider-track" id="discount-slider-track">
+                    <!-- Discount products will be dynamically inserted here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+<section class="premium-fashion-banner">
+    <div class="container">
+        <div class="premium-banner-content">
+            <div class="premium-banner-text">
+                <div class="premium-meta">
+                    <span class="premium-tag">Spring 2023 Collection</span>
+                    <div class="premium-divider"></div>
+                    <span class="premium-date">Limited Time</span>
+                </div>
+                <h1 class="premium-headline">Elevate Your Style with Premium Fashion</h1>
+                <p class="premium-description">Discover our exclusive collection of meticulously crafted pieces that blend contemporary design with timeless elegance. Experience the perfect fusion of quality, comfort, and sophistication.</p>
+                
+                <div class="premium-cta">
+                    <a href="#" class="premium-btn primary-btn">
+                        <span>Explore Collection</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="#" class="premium-btn secondary-btn">
+                        <span>Book Styling Consultation</span>
+                    </a>
+                </div>
+                
+                <div class="premium-stats">
+                    <div class="premium-stat">
+                        <div class="premium-number">200+</div>
+                        <div class="premium-label">New Arrivals</div>
+                    </div>
+                    <div class="premium-stat">
+                        <div class="premium-number">98%</div>
+                        <div class="premium-label">Customer Satisfaction</div>
+                    </div>
+                    <div class="premium-stat">
+                        <div class="premium-number">50+</div>
+                        <div class="premium-label">Designer Brands</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="premium-visual">
+                <div class="premium-image-container">
+                    <img src="assets/main sub banner.jpg" alt="Premium Fashion Collection" class="premium-main-image">
+                    <div class="premium-overlay"></div>
+                </div>
+                
+                <div class="premium-badges">
+                    <div class="premium-badge">
+                        <i class="fas fa-award"></i>
+                        <span>Premium Quality</span>
+                    </div>
+                    <div class="premium-badge">
+                        <i class="fas fa-leaf"></i>
+                        <span>Sustainable Materials</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section new-arrivals-shoes">
+    <div class="container">
+        <div class="discount-header">
+            <div class="discount-title">
+                <h2>New Arrivals - Spring</h2>
+                <p>Discover our latest footwear collection</p>
+            </div>
+            <div class="discount-slider-controls">
+                <button class="slider-btn prev-shoes-btn">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="slider-btn next-shoes-btn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+        <div class="discount-slider">
+            <div class="discount-slider-track" id="shoes-slider-track">
+                <!-- Shoe products will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section testimonials-section">
+    <div class="container">
+        <div class="testimonials-header">
+            <h2>Testimonials</h2>
+            <p>There are many variations of passages of lorem ipsum available</p>
+        </div>
+        
+        <div class="testimonials-content">
+            <div class="testimonials-intro">
+                <p>There are many variations of passages of Lorem ipsum available, but the majority have suffered alteration in some form, by injected.</p>
+            </div>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-item">
+                    <div class="testimonial-image">
+                        <img src="https://i.pinimg.com/736x/56/bd/70/56bd703277f9468df9d8cd636f51e4f0.jpg" alt="Judie Jep">
+                    </div>
+                    <p class="testimonial-text">Honestly say আপু,শাড়িটা অনেক সুন্দর হয়েছে।তুলনামুলক অন্যান্য পেইজের থেকে দামেও কম হয়েছে।আর আপনার ব্যবহার অসাধারণ আপু।</p>
+                    <p class="testimonial-author"><strong>Judie Jep - Google Inc.</strong></p>
+                </div>
+                
+                <div class="testimonial-item">
+                    <div class="testimonial-image">
+                        <img src="https://i.pinimg.com/736x/e6/67/de/e667de519f021f715646b848d55aa578.jpg" alt="Gordon Amyas">
+                    </div>
+                    <p class="testimonial-text">এত সুন্দর সুন্দর শাড়ি বিক্রি করার জন্য ধন্যবাদ আপনাদেরকে.</p>
+                    <p class="testimonial-author"><strong>Gordon Amyas - Google Inc.</strong></p>
+                </div>
+                
+                <div class="testimonial-item">
+                    <div class="testimonial-image">
+                        <img src="https://i.pinimg.com/736x/47/1b/ba/471bba9ff676c70147932bf22b66e04b.jpg" alt="Dom Clement">
+                    </div>
+                    <p class="testimonial-text">আপনাদের কাছ থেকে দুইটা,,, নিয়েছি আলহামদুলিল্লাহ অনেক ভালো হয়েছে পরবর্তীতে আবার নিবে</p>
+                    <p class="testimonial-author"><strong>Dom Clement - Google Inc.</strong></p>
+                </div>
+            </div>
+            
+            <div class="testimonials-cta">
+                <hr>
+                <button class="btn">LEAVE A REVIEW</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <h3>Subscribe to Our Newsletter</h3>
+            <p>Get the latest updates on new products and upcoming sales</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Your email address">
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>About Us</h4>
+                    <p>OHOM is a leading fashion e-commerce platform offering the latest trends in clothing, accessories, and sare for women.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Customer Service</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Help & Contact</a></li>
+                        <li><a href="#">Returns</a></li>
+                        <li><a href="#">Shipping</a></li>
+                        <li><a href="#">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Information</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Fashion Ave, New York</li>
+                        <li><i class="fas fa-phone"></i> +1 234 567 890</li>
+                        <li><i class="fas fa-envelope"></i> support@stylevogue.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; <span id="footer-year"></span> StyleVogue. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast placeholder -->
+    <div id="toast-container"></div>
+
+    <!-- 🆕 PRODUCT DETAIL POPUP (Centered, two-column) -->
+    <div class="product-popup" id="product-popup" aria-hidden="true">
+      <div class="product-popup-content" role="dialog" aria-modal="true">
+        <span class="popup-close" id="popup-close" aria-label="Close">&times;</span>
+        <div class="popup-left">
+          <img id="popup-image" src="" alt="Product image">
+        </div>
+        <div class="popup-right">
+          <h2 id="popup-title">Product Name</h2>
+          <p class="popup-category" id="popup-category"></p>
+          <div class="popup-rating" id="popup-rating"></div>
+          <div class="popup-price">
+            <span class="current-price" id="popup-price">$00.00</span>
+            <span class="old-price" id="popup-oldprice"></span>
+          </div>
+          <p class="popup-sku">SKU: <span id="popup-sku">#0001</span> | <span id="popup-stock">In Stock</span></p>
+
+          <div class="popup-options">
+            <div class="option">
+              <h4>Color:</h4>
+              <div class="color-swatches">
+                <span class="swatch" data-color="black" style="background:black;"></span>
+                <span class="swatch" data-color="white" style="background:white; border:1px solid #ddd;"></span>
+                <span class="swatch" data-color="blue" style="background:#007bff;"></span>
+                <span class="swatch" data-color="red" style="background:#dc3545;"></span>
+              </div>
+            </div>
+
+            <div class="option">
+              <h4>Size:</h4>
+              <div class="size-options">
+                <button class="size-btn">S</button>
+                <button class="size-btn">M</button>
+                <button class="size-btn">L</button>
+                <button class="size-btn">XL</button>
+              </div>
+            </div>
+
+            <div class="option">
+              <h4>Quantity:</h4>
+              <div class="quantity-stepper">
+                <button id="qty-minus">−</button>
+                <input type="number" id="qty-value" value="1" min="1">
+                <button id="qty-plus">+</button>
+              </div>
+            </div>
+          </div>
+
+          <p class="popup-description" id="popup-description">Discover the perfect blend of style and comfort in this fashionable item. Crafted with premium materials and attention to detail.</p>
+
+          <div class="popup-social">
+            <span>Share:</span>
+            <a href="#" title="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" title="Share on Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" title="Share on Instagram"><i class="fab fa-instagram"></i></a>
+          </div>
+
+          <button class="btn add-to-cart-btn" id="popup-add-to-cart">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

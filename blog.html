@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>StyleVogue | Fashion Blog</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Blog-specific styles */
+        .blog-hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                        url('https://i.pinimg.com/736x/c6/45/87/c645877ecab5fccb7cec6d721206c64c.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 100px 0;
+            margin-bottom: 60px;
+        }
+        
+        .blog-hero-content h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .blog-hero-content p {
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .blog-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .blog-main {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+        
+        .featured-article {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            background: white;
+        }
+        
+        .featured-article-image {
+            height: 400px;
+            overflow: hidden;
+        }
+        
+        .featured-article-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .featured-article:hover .featured-article-image img {
+            transform: scale(1.05);
+        }
+        
+        .featured-article-content {
+            padding: 30px;
+        }
+        
+        .article-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: var(--muted);
+        }
+        
+        .article-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .article-tag {
+            background: var(--primary-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        
+        .featured-article h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+        
+        .featured-article p {
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #555;
+        }
+        
+        .read-more {
+            color: var(--primary-color);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: gap 0.3s;
+            cursor: pointer;
+        }
+        
+        .read-more:hover {
+            gap: 10px;
+        }
+        
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+        
+        .article-card {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            background: white;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+        }
+        
+        .article-card-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .article-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .article-card:hover .article-card-image img {
+            transform: scale(1.05);
+        }
+        
+        .article-card-content {
+            padding: 20px;
+        }
+        
+        .article-card h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+        
+        .article-card p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .blog-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .sidebar-widget {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .sidebar-widget h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+        
+        .search-form {
+            display: flex;
+        }
+        
+        .search-form input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px 0 0 5px;
+        }
+        
+        .search-form button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0 20px;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+        
+        .categories-list {
+            list-style: none;
+        }
+        
+        .categories-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .categories-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .categories-list a {
+            display: flex;
+            justify-content: space-between;
+            color: #333;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+        
+        .categories-list a:hover {
+            color: var(--primary-color);
+        }
+        
+        .categories-list span {
+            background: var(--light-bg);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+        }
+        
+        .popular-posts {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .popular-post {
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .popular-post:hover {
+            transform: translateX(5px);
+        }
+        
+        .popular-post-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 5px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        
+        .popular-post-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .popular-post-content h4 {
+            font-size: 14px;
+            margin-bottom: 5px;
+            line-height: 1.4;
+        }
+        
+        .popular-post-content .date {
+            font-size: 12px;
+            color: var(--muted);
+        }
+        
+        .tags-widget {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .tag {
+            background: var(--light-bg);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            transition: background 0.3s, color 0.3s;
+            cursor: pointer;
+        }
+        
+        .tag:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .newsletter-widget {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-color-600));
+            color: white;
+            text-align: center;
+        }
+        
+        .newsletter-widget h3 {
+            color: white;
+            border-bottom: none;
+        }
+        
+        .newsletter-widget p {
+            margin-bottom: 20px;
+        }
+        
+        .newsletter-form input {
+            width: 100%;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        
+        .newsletter-form button {
+            width: 100%;
+            padding: 12px;
+            background: white;
+            color: var(--primary-color);
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .newsletter-form button:hover {
+            background: var(--light-bg);
+        }
+        
+        .blog-pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 50px;
+        }
+        
+        .pagination-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            background: white;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .pagination-btn.active, .pagination-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        /* Blog Post Modal */
+        .blog-post-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 3000;
+            overflow-y: auto;
+            padding: 40px 20px;
+        }
+        
+        .blog-post-modal.active {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        
+        .blog-post-content {
+            background: white;
+            max-width: 900px;
+            width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        
+        .blog-post-header {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+        }
+        
+        .blog-post-header img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .blog-post-header-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 30px;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+        }
+        
+        .close-blog-post {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+        
+        .blog-post-body {
+            padding: 40px;
+        }
+        
+        .blog-post-body h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+        
+        .blog-post-body h2 {
+            font-size: 24px;
+            margin: 30px 0 15px;
+            color: var(--primary-color);
+        }
+        
+        .blog-post-body p {
+            line-height: 1.7;
+            margin-bottom: 20px;
+            color: #444;
+        }
+        
+        .blog-post-body blockquote {
+            border-left: 4px solid var(--primary-color);
+            padding-left: 20px;
+            margin: 30px 0;
+            font-style: italic;
+            color: #666;
+        }
+        
+        .blog-post-body img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .blog-post-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            border-top: 1px solid var(--border-color);
+            background: var(--light-bg);
+        }
+        
+        .social-share {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .social-share a {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+            transition: all 0.3s;
+        }
+        
+        .social-share a:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 992px) {
+            .blog-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .blog-hero {
+                padding: 80px 0;
+            }
+            
+            .blog-hero-content h1 {
+                font-size: 36px;
+            }
+            
+            .blog-post-body {
+                padding: 20px;
+            }
+            
+            .blog-post-body h1 {
+                font-size: 28px;
+            }
+            
+            .blog-post-footer {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <div class="logo"><img src="assets/Gemini_Generated_Image_uqnm26uqnm26uqnm.png" alt=""></div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search for products...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <div class="header-actions">
+                    <div class="header-action">
+                        <i class="far fa-user"></i>
+                        <span>Account</span>
+                    </div>
+                    <div class="header-action">
+                        <i class="far fa-heart"></i>
+                        <span>Wishlist</span>
+                    </div>
+                    
+                </div>
+            </div>
+           <nav class="main-nav">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">shop</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Blog Hero Section -->
+    <section class="blog-hero">
+        <div class="container">
+            <div class="blog-hero-content">
+                <h1>OHOM Fashion Blog</h1>
+                <p>Discover the latest trends, styling tips, and fashion insights from our experts</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Content -->
+    <div class="blog-container">
+        <main class="blog-main">
+            <!-- Featured Article -->
+            <article class="featured-article" data-id="1">
+                <div class="featured-article-image">
+                    <img src="assets/bl 1.jpg" alt="Spring Fashion Trends">
+                </div>
+                <div class="featured-article-content">
+                    <div class="article-meta">
+                        <span><i class="far fa-calendar"></i> March 15, 2023</span>
+                        <span><i class="far fa-user"></i> Emma Wilson</span>
+                        <span><i class="far fa-comment"></i> 24 Comments</span>
+                    </div>
+                    <span class="article-tag">Trends</span>
+                    <h2> অহম-এ স্বাগতম: বাংলার হৃদয়ের স্পন্দনে বোনা এক অভিজ্ঞতা</h2>
+                    <p>শিরোনাম: অহম-এ স্বাগতম: বাংলার হৃদয়ের স্পন্দনে বোনা এক অভিজ্ঞতা বাংলার মাটি আর মানুষের গল্পের সাথে মিশে আছে বাঙালি নারীর শাড়ি পরার চিরন্তন সেই দৃশ্য। মিহি তুলোর নরমতায়, বেনারসির জমকালোতায়, বা টাঙ্গাইলের নিজস্ব মোটিফে যেন লুকিয়ে আছে শতাব্দীর পর শতাব্দীর ইতিহাস, সংস্কৃতি আর গর্ব। এই গর্ব, এই অহংকারকে একত্রিত করেই আমাদের পথচলা। 'অহম' শুধু একটি ব্র্যান্ড নয়, এটি একটি আবেগ, একটি প্রতিশ্রুতি – বাংলার সংস্কৃতি আর ঐতিহ্যকে আপনার দোরগোড়ায় পৌঁছে দেওয়ার।</p>
+                    <a class="read-more" data-id="1">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <!-- Articles Grid -->
+            <div class="articles-grid">
+                <!-- Article 1 -->
+                <article class="article-card" data-id="2">
+                    <div class="article-card-image">
+                        <img src="assets/bl 7.jpg" alt="Sustainable Fashion">
+                    </div>
+                    <div class="article-card-content">
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar"></i> March 10, 2023</span>
+                            <span><i class="far fa-user"></i> Sarah Johnson</span>
+                        </div>
+                        <span class="article-tag">Sustainability</span>
+                        <h3>কোন শাড়িটি আপনার জন্য? বাংলার নানান রূপের সন্ধানে</h3>
+                        <p>বাংলাদেশের শাড়ির জগৎ যেমন বৈচিত্র্যময়, তেমনই রঙিন। প্রতিটি অঞ্চলের শাড়ির আছে নিজস্ব স্বকীয়তা ও ইতিহাস। অহম আপনাকে নিয়ে যাবে এই রূপ-রসের ভুবনে। জেনে নিন কিছু জনপ্রিয় ধরন:.</p>
+                        <a class="read-more" data-id="2">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Article 2 -->
+                <article class="article-card" data-id="3">
+                    <div class="article-card-image">
+                        <img src="assets/bl 2.jpg" alt="Accessory Trends">
+                    </div>
+                    <div class="article-card-content">
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar"></i> March 5, 2023</span>
+                            <span><i class="far fa-user"></i> Michael Chen</span>
+                        </div>
+                        <span class="article-tag">Accessories</span>
+                        <h3>হস্তশিল্পের জাদু: কেন একটি হাতে বোনা শাড়ি শুধু পোশাক নয়, একটি সম্পদ</h3>
+                        <p>একটি শাড়ি যখন কারিগরের হাতে তৈরি হতে থাকে, তখন তা শুধু কাপড়ে পরিণত হয় না, হয়ে ওঠে একটি জীবন্ত শিল্পকর্ম। অহম এই শিল্পকর্মকেই সম্মান ও গুরুত্ব দেয়। আমাদের প্রতিটি শাড়ির পিছনে আছে একজন মাহিরুরের (কারিগর) অক্লান্ত পরিশ্রম, ধৈর্য এবং সৃজনশীলতা।</p>
+                        <a class="read-more" data-id="3">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Article 3 -->
+                <article class="article-card" data-id="4">
+                    <div class="article-card-image">
+                        <img src="assets/bl 3.jpg" alt="Men's Fashion">
+                    </div>
+                    <div class="article-card-content">
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar"></i> February 28, 2023</span>
+                            <span><i class="far fa-user"></i> James Rodriguez</span>
+                        </div>
+                        <span class="article-tag">Men's Fashion</span>
+                        <h3>শাড়ি পরিচর্যা টিপস</h3>
+                        <p>শিরোনাম: আপনার প্রিয় শাড়িটি যেভাবে সারাজীবন থাকবে নতুনের মতো
+
+একটি সুন্দর শাড়ি হল একটি বিনিয়োগ। সঠিক যত্নে এটি অনেক বছর ধরে তার সৌন্দর্য ও গুণগত মান বজায় রাখতে পারে। অহম থেকে জানুন কিছু সহজ কিন্তু কার্যকরী টিপস:
+
+</p>
+                        <a class="read-more" data-id="4">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Article 4 -->
+                <article class="article-card" data-id="5">
+                    <div class="article-card-image">
+                        <img src="assets/bl 4.jpg" alt="Beauty Tips">
+                    </div>
+                    <div class="article-card-content">
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar"></i> February 22, 2023</span>
+                            <span><i class="far fa-user"></i> Olivia Parker</span>
+                        </div>
+                        <span class="article-tag">Beauty</span>
+                        <h3> বিভিন্ন অঞ্চলের শাড়ির বৈশিষ্ট্য</h3>
+                        <p>শিরোনাম: বাংলার ভূখণ্ডে শাড়ির রূপবৈচিত্র্য
+
+বাংলাদেশের মানচিত্র যেমন বৈচিত্র্যপূর্ণ, তেমনি এর বিভিন্ন অঞ্চলের শাড়ির ধরনও। আসুন একটি ভ্রমণে বেরিয়ে পড়ি:</p>
+                        <a class="read-more" data-id="5">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Article 5 -->
+                <article class="article-card" data-id="6">
+                    <div class="article-card-image">
+                        <img src="assets/bl 5.jpg" alt="Fashion Events">
+                    </div>
+                    <div class="article-card-content">
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar"></i> February 18, 2023</span>
+                            <span><i class="far fa-user"></i> Sophia Williams</span>
+                        </div>
+                        <span class="article-tag">Events</span>
+                        <h3>আধুনিক ফ্যাশনে শাড়ি স্টাইলিং</h3>
+                        <p>শিরোনাম: শাড়িকে করুন আরও স্টাইলিশ: আধুনিক যুগে ঐতিহ্যের পুনরুদ্ধার
+
+শাড়ি শুধু পার্টি বা উৎসবের জন্য নয়, এটি দৈনন্দিন ফ্যাশনেরও একটি গুরুত্বপূর্ণ অংশ হতে পারে। কীভাবে আপনার অহম শাড়িটিকে করে তুলবেন আরও আধুনিক এবং wearable, জেনে নিন কিছু টিপস:</p>
+                        <a class="read-more" data-id="6">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Article 6 -->
+                <article class="article-card" data-id="7">
+                    <div class="article-card-image">
+                        <img src="assets/bl 6.jpg" alt="Style Tips">
+                    </div>
+                    <div class="article-card-content">
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar"></i> February 14, 2023</span>
+                            <span><i class="far fa-user"></i> Daniel Lee</span>
+                        </div>
+                        <span class="article-tag">Style Tips</span>
+                        <h3>আমাদের প্রতিশ্রুতি</h3>
+                        <p>শিরোনাম: অহম-এর অঙ্গীকার: গুণগত মান, কারুশিল্প এবং আপনাদের প্রতি
+
+অহম শুধু শাড়ি বিক্রি করে না, আমরা বিক্রি করি বিশ্বাস, সম্পর্ক এবং একটি স্বপ্ন। আমাদের প্রতিশ্রুতি তিনটি স্তম্ভের উপর দাঁড়িয়ে আছে:</p>
+                        <a class="read-more" data-id="7">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Pagination -->
+            <div class="blog-pagination">
+                <a href="#" class="pagination-btn active">1</a>
+                <a href="#" class="pagination-btn">2</a>
+                <a href="#" class="pagination-btn">3</a>
+                <a href="#" class="pagination-btn"><i class="fas fa-chevron-right"></i></a>
+            </div>
+        </main>
+
+        <!-- Sidebar -->
+        <aside class="blog-sidebar">
+            <!-- Search Widget -->
+            <div class="sidebar-widget">
+                <h3>Search</h3>
+                <form class="search-form" id="blog-search">
+                    <input type="text" placeholder="Search articles...">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+
+            <!-- Categories Widget -->
+            <div class="sidebar-widget">
+                <h3>Categories</h3>
+                <ul class="categories-list" id="categories-list">
+                    <li><a data-category="all">All Categories <span>24</span></a></li>
+                    <li><a data-category="trends">Fashion Trends <span>12</span></a></li>
+                    <li><a data-category="guides">Style Guides <span>8</span></a></li>
+                    <li><a data-category="sustainability">Sustainability <span>5</span></a></li>
+                    <li><a data-category="beauty">Beauty <span>7</span></a></li>
+                    <li><a data-category="accessories">Accessories <span>9</span></a></li>
+                    <li><a data-category="mens-fashion">Men's Fashion <span>6</span></a></li>
+                </ul>
+            </div>
+
+            <!-- Popular Posts Widget -->
+            <div class="sidebar-widget">
+                <h3>Popular Posts</h3>
+                <div class="popular-posts">
+                    <div class="popular-post" data-id="1">
+                        <div class="popular-post-image">
+                            <img src="assets/bl 2.jpg" alt="Popular Post">
+                        </div>
+                        <div class="popular-post-content">
+                            <h4>Spring 2023 Fashion Trends You Need to Know</h4>
+                            <span class="date">Mar 15, 2023</span>
+                        </div>
+                    </div>
+                    <div class="popular-post" data-id="2">
+                        <div class="popular-post-image">
+                            <img src="assets/bl 3.jpg" alt="Popular Post">
+                        </div>
+                        <div class="popular-post-content">
+                            <h4>The Rise of Sustainable Fashion</h4>
+                            <span class="date">Mar 10, 2023</span>
+                        </div>
+                    </div>
+                    <div class="popular-post" data-id="3">
+                        <div class="popular-post-image">
+                            <img src="assets/bl 4.jpg" alt="Popular Post">
+                        </div>
+                        <div class="popular-post-content">
+                            <h4>Accessory Trends That Elevate Any Outfit</h4>
+                            <span class="date">Mar 5, 2023</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tags Widget -->
+            <div class="sidebar-widget">
+                <h3>Tags</h3>
+                <div class="tags-widget">
+                    <span class="tag" data-tag="all">All</span>
+                    <span class="tag" data-tag="trends">Fashion</span>
+                    <span class="tag" data-tag="trends">Trends</span>
+                    <span class="tag" data-tag="guides">Style</span>
+                    <span class="tag" data-tag="beauty">Beauty</span>
+                    <span class="tag" data-tag="accessories">Accessories</span>
+                    <span class="tag" data-tag="sustainability">Sustainability</span>
+                    <span class="tag" data-tag="mens-fashion">Men's Fashion</span>
+                    <span class="tag" data-tag="trends">Spring</span>
+                </div>
+            </div>
+
+            <!-- Newsletter Widget -->
+            <div class="sidebar-widget newsletter-widget">
+                <h3>Subscribe to Our Blog</h3>
+                <p>Get the latest fashion insights and style tips delivered to your inbox</p>
+                <form class="newsletter-form" id="blog-newsletter">
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Blog Post Modal -->
+    <div class="blog-post-modal" id="blog-post-modal">
+        <div class="blog-post-content">
+            <div class="close-blog-post" id="close-blog-post">
+                <i class="fas fa-times"></i>
+            </div>
+            <div class="blog-post-header">
+                <img id="modal-image" src="" alt="Blog Post">
+                <div class="blog-post-header-content">
+                    <span class="article-tag" id="modal-tag">Category</span>
+                    <h1 id="modal-title">Blog Post Title</h1>
+                    <div class="article-meta">
+                        <span><i class="far fa-calendar"></i> <span id="modal-date">Date</span></span>
+                        <span><i class="far fa-user"></i> <span id="modal-author">Author</span></span>
+                        <span><i class="far fa-comment"></i> <span id="modal-comments">Comments</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="blog-post-body" id="modal-body">
+                <!-- Content will be inserted here by JavaScript -->
+            </div>
+            <div class="blog-post-footer">
+                <div class="social-share">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <a href="#" class="read-more">Back to Blog <i class="fas fa-arrow-left"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>About Us</h4>
+                    <p>OHOM is a leading fashion e-commerce platform offering the latest trends in clothing, accessories, and sare for women.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Customer Service</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Help & Contact</a></li>
+                        <li><a href="#">Returns</a></li>
+                        <li><a href="#">Shipping</a></li>
+                        <li><a href="#">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Information</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Fashion Ave, New York</li>
+                        <li><i class="fas fa-phone"></i> +1 234 567 890</li>
+                        <li><i class="fas fa-envelope"></i> support@stylevogue.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; <span id="footer-year"></span> StyleVogue. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Blog data
+        const blogPosts = {
+            1: {
+                title: "স্বাগতম জানাই অহম-এর জগতে",
+                image: "assets/bl 1.jpg",
+                tag: "Trends",
+                date: "March 15, 2023",
+                author: "Emma Wilson",
+                comments: "24",
+                category: "trends",
+                content: `
+                    <p>শিরোনাম: অহম-এ স্বাগতম: বাংলার হৃদয়ের স্পন্দনে বোনা এক অভিজ্ঞতা
+
+বাংলার মাটি আর মানুষের গল্পের সাথে মিশে আছে বাঙালি নারীর শাড়ি পরার চিরন্তন সেই দৃশ্য। মিহি তুলোর নরমতায়, বেনারসির জমকালোতায়, বা টাঙ্গাইলের নিজস্ব মোটিফে যেন লুকিয়ে আছে শতাব্দীর পর শতাব্দীর ইতিহাস, সংস্কৃতি আর গর্ব। এই গর্ব, এই অহংকারকে একত্রিত করেই আমাদের পথচলা। 'অহম' শুধু একটি ব্র্যান্ড নয়, এটি একটি আবেগ, একটি প্রতিশ্রুতি – বাংলার সংস্কৃতি আর ঐতিহ্যকে আপনার দোরগোড়ায় পৌঁছে দেওয়ার।
+
+</p>
+                    
+                    
+                    <p>অহম-এ স্বাগতম: বাংলার হৃদয়ের স্পন্দনে বোনা এক অভিজ্ঞতা</p>
+                    
+                    <img src="assets/bl 1.jpg" alt="Oversized Blazer">
+                    
+                    
+                    <p>অহম-এর প্রতিটি শাড়ি হল এক একটি কারুকার্যময় সৃষ্টি, যেখানে প্রতিটি সূক্ষ্ম সেলাই, প্রতিটি বুনন আর প্রতিটি নকশায় ফুটে ওঠে আমাদের দেশজ কারিগরদের দক্ষতা ও ধৈর্য। আমরা নির্বাচন করি সর্বোৎকৃত সুতা, সবচেয়ে নরম ফ্যাব্রিক এবং সবচেয়ে সৃজনশীল ডিজাইন, যাতে আপনি পেতে পারেন শুধু একটি পোশাক নয়, একটি অনুভূতি।</p>
+                    
+                    <blockquote>
+                        "অহম-এর প্রতিটি শাড়ি হল এক একটি কারুকার্যময় সৃষ্টি, যেখানে প্রতিটি সূক্ষ্ম সেলাই, প্রতিটি বুনন আর প্রতিটি নকশায় ফুটে ওঠে আমাদের দেশজ কারিগরদের দক্ষতা ও ধৈর্য। আমরা নির্বাচন করি সর্বোৎকৃত সুতা, সবচেয়ে নরম ফ্যাব্রিক এবং সবচেয়ে সৃজনশীল ডিজাইন, যাতে আপনি পেতে পারেন শুধু একটি পোশাক নয়, একটি অনুভূতি।>
+                    
+                    
+                    
+                    
+                    
+                `
+            },
+            2: {
+                title: "The Rise of Sustainable Fashion: What You Need to Know",
+                image: "assets/bl 7.jpg",
+                tag: "Sustainability",
+                date: "March 10, 2023",
+                author: "Sarah Johnson",
+                comments: "18",
+                category: "sustainability",
+                content: `
+                    <p>বাংলাদেশের শাড়ির জগৎ যেমন বৈচিত্র্যময়, তেমনই রঙিন। প্রতিটি অঞ্চলের শাড়ির আছে নিজস্ব স্বকীয়তা ও ইতিহাস। অহম আপনাকে নিয়ে যাবে এই রূপ-রসের ভুবনে। জেনে নিন কিছু জনপ্রিয় ধরন:</p>
+                    
+                    <h2>Understanding Sustainable Fashion</h2>
+                    <p>১. মসলিন: ইতিহাসখ্যাত এই শাড়ি তার অতুলনীয় সূক্ষ্মতা ও নরমত্বের জন্য বিখ্যাত। একসময় যা ছিল রাজা-মহারাজাদের প্রিয়, আজ অহম-এর প্রচেষ্টায় তা সবার কাছে পৌঁছে দেওয়ার চেষ্টা।
+২. জামদানি: ইউনেস্কো স্বীকৃত এই intangible cultural heritage-এর শাড়ি হল বাংলার গর্ব। এর জ্যামিতিক ও ফুলেল নকশা হাতে বুনন করা হয় অসামান্য দক্ষতায়।
+৩. টাঙ্গাইল শাড়ি: এর স্বতন্ত্র কাপড়ের বুনন ও কোরা-তারা-ফুলের নকশা বাংলার নারীর প্রিয় সংগ্রহে থাকে সবসময়।
+৪. বেনারসি সিল্ক: জমকালো জরি কাজ ও জমজমেট কাপড়ে বোনা এই শাড়ি任何 বিশেষ অনুষ্ঠানে এনে দেয় রাজকীয় এক আবেদন।
+৫. কটন শাড়ি: দৈনন্দিন ব্যবহারের জন্য সবচেয়ে আরামদায়ক। নরম সুতি কাপড়ে তৈরি এই শাড়িগুলোতে থাকে প্রাণবন্ত রঙের ছটা।</p>
+                    
+                    <img src="assets/bl 7.jpg" alt="Sustainable Fashion">
+                    
+                   
+                    
+                   
+                `
+            },
+            3: {
+                title: "হস্তশিল্পের জাদু: কেন একটি হাতে বোনা শাড়ি শুধু পোশাক নয়, একটি সম্পদ",
+                image: "assets/bl 2.jpg",
+                tag: "Accessories",
+                date: "March 5, 2023",
+                author: "Michael Chen",
+                comments: "32",
+                category: "accessories",
+                content: `
+                    <p>শিরোনাম: হস্তশিল্পের জাদু: কেন একটি হাতে বোনা শাড়ি শুধু পোশাক নয়, একটি সম্পদ
+
+একটি শাড়ি যখন কারিগরের হাতে তৈরি হতে থাকে, তখন তা শুধু কাপড়ে পরিণত হয় না, হয়ে ওঠে একটি জীবন্ত শিল্পকর্ম। অহম এই শিল্পকর্মকেই সম্মান ও গুরুত্ব দেয়। আমাদের প্রতিটি শাড়ির পিছনে আছে একজন মাহিরুরের (কারিগর) অক্লান্ত পরিশ্রম, ধৈর্য এবং সৃজনশীলতা।
+
+একটি হস্তশিল্প শাড়ি কেন বিশেষ?
+
+অনন্যতা: যন্ত্রে তৈরি শাড়ির মতো একই রকম নয়। প্রতিটি শাড়িই একক এবং সামান্য তারতম্য এটিকে করে তোলে বিশেষ।
+
+গুণগত মান: হাতে বোনা শাড়ির গুণগত মান অনেক বেশি হয় এবং এটি বহু বছর টিকে থাকে, হয়ে ওঠে বংশপরম্পরায় সঞ্চয়নের সম্পদ।
+
+সংস্কৃতির ধারক: প্রতিটি স্টিচ, প্রতিটি নকশা বাংলার হাজার বছরের ইতিহাস与文化কে বহন করে।
+
+স্থানীয় অর্থনীতিতে অবদান: একটি হস্তশিল্প শাড়ি কিনলে আপনি একজন স্থানীয় কারিগর ও তার পরিবারকে 직접 সহায়তা করেন।
+
+অহম-এর প্রতিটি শাড়ি হল এইসব গুণী কারিগরদের প্রতি আমাদের শ্রদ্ধার্ঘ্য। আপনি যখন অহম-এর একটি শাড়ি নির্বাচন করেন, আপনি শুধু একটি সুন্দর পোশাকই কিনছেন না, আপনি হয়ে যাচ্ছেন বাংলার এই শিল্প ঐতিহ্যের একজন অংশীদার।</p>
+                    
+                   
+                    
+                    <img src="assets/bl 2.jpg" alt="Statement Jewelry">
+                    
+                    
+                `
+            },
+            4: {
+                title: " আপনার প্রিয় শাড়িটি যেভাবে সারাজীবন থাকবে নতুনের মতো",
+                image: "assets/bl 3.jpg",
+                tag: "Men's Fashion",
+                date: "February 28, 2023",
+                author: "James Rodriguez",
+                comments: "15",
+                category: "mens-fashion",
+                content: `
+                    <p>শিরোনাম: আপনার প্রিয় শাড়িটি যেভাবে সারাজীবন থাকবে নতুনের মতো
+
+একটি সুন্দর শাড়ি হল একটি বিনিয়োগ। সঠিক যত্নে এটি অনেক বছর ধরে তার সৌন্দর্য ও গুণগত মান বজায় রাখতে পারে। অহম থেকে জানুন কিছু সহজ কিন্তু কার্যকরী টিপস:
+
+সঠিকভাবে সংরক্ষণ: শাড়ি সংরক্ষণের আগে অবশ্যই হালকা গরম পানিতে ভালোভাবে শুকিয়ে নেবেন। কখনই প্লাস্টিকের কভারে রাখবেন না, এতে দাগ ও ফাঙ্গাস হতে পারে। সুতি কাপড়ের কভার বা নীল খাতায় মুড়িয়ে রাখাই ভালো।
+
+ধোয়ার নিয়ম: জামদানি বা মসলিনের মতো নরম শাড়ি হ্যান্ড ওয়াশ করাই সবচেয়ে ভালো। কড়া ডিটারজেন্ট এড়িয়ে চলুন। সিল্ক শাড়ি ড্রাই ক্লিন করানো উত্তম।
+
+আয়রন করা: শাড়ি আয়রন করার সময় খুব বেশি গরম তাপ ব্যবহার করবেন না। স্টিম আয়রন是最 ভালো। সিল্ক শাড়ি উল্টো পাশ থেকে আয়রন করুন।
+
+নিয়মিত পরিষ্কার: একটি শাড়ি বারবার পরার পর একটু রোদে দিলে তার তাজা ভাব ফিরে আসে।
+
+আপনার অহম শাড়িটির যত্ন নিন, এটি আপনাকে দীর্ঘদিন সেবা দেবে।</p>
+                    
+                   
+                    
+                    <img src="assets/bl 3.jpg" alt="Men's Spring Fashion">
+                    
+                  
+                `
+            },
+            5: {
+                title: "বাংলার ভূখণ্ডে শাড়ির রূপবৈচিত্র্য",
+                image: "assets/bl 4.jpg",
+                tag: "Beauty",
+                date: "February 22, 2023",
+                author: "Olivia Parker",
+                comments: "27",
+                category: "beauty",
+                content: `
+                    <p>বাংলাদেশের মানচিত্র যেমন বৈচিত্র্যপূর্ণ, তেমনি এর বিভিন্ন অঞ্চলের শাড়ির ধরনও। আসুন একটি ভ্রমণে বেরিয়ে পড়ি:
+
+</p>
+                    
+                   
+                    
+                    <img src="assets/bl 4.jpg" alt="Natural Makeup">
+                    
+                   
+                    <p>ঢাকার জামদানি: এর নকশা এতই সূক্ষ্ম যে মনে হয় যেন কাপড়ে মসলিনের উপর এমব্রয়ডারি করা হয়েছে। ডুরি (জ্যামিতিক) ও ফুলতান (ফুলেল) – দুই ধরনের নকশাতেই এটি অসাধারণ।
+
+টাঙ্গাইলের শাড়ি: এর প্রধান বৈশিষ্ট্য হলো এর কাপড়ের গঠন। তুলনামূলকভাবে মোটা সুতা দিয়ে বোনা হয় এবং নকশাগুলো সাধারণত সাদা বা রঙিন সুতায় করা হয়।
+
+কুমিল্লার খাদি: হাতে কাটা সুতা দিয়ে বোনা খাদি কাপড় খুবই আরামদায়ক এবং পরিবেশবান্ধব। এর গাঁটছড়া বুনন এটিকে করে তোলে আরও মজবুত।
+
+রাজশাহীর সিল্ক: এই অঞ্চলের সিল্ক শাড়ি তার মসৃণতা ও চকচকে ভাবের জন্য বিখ্যাত। এখানকার শাড়িগুলোতে সাধারণত প্রাকৃতিক রঙের ব্যবহার বেশি দেখা যায়।
+
+অহম এই সমস্ত অঞ্চলের সেরা শিল্পকে একত্রিত করে আপনার জন্য নিয়ে আসে একটি মাত্র প্ল্যাটফর্মে।
+
+</p>
+                    
+                    
+                    
+                  
+                `
+            },
+            6: {
+                title: "Fashion Week Highlights: What Stole the Show",
+                image: "assets/bl 5.jpg",
+                tag: "Events",
+                date: "February 18, 2023",
+                author: "Sophia Williams",
+                comments: "21",
+                category: "trends",
+                content: `
+                    <p>শাড়ি শুধু পার্টি বা উৎসবের জন্য নয়, এটি দৈনন্দিন ফ্যাশনেরও একটি গুরুত্বপূর্ণ অংশ হতে পারে। কীভাবে আপনার অহম শাড়িটিকে করে তুলবেন আরও আধুনিক এবং wearable, জেনে নিন কিছু টিপস:
+
+ইনডোর লুক: একটি সুতি বা খাদির শাড়িকে paired করুন একটি সাদা বা contrasting রঙের টি-শার্টের সাথে। এটি দারুণ একটা ক্যাজুয়াল এবং আরামদায়ক লুক দেবে।
+
+ব্লাউজের বিকল্প: টিউব টপ, কটার্ড বা এমনকি একটি ফ্যান্সি শার্ট দিয়েও শাড়ি পরা যায়। এটি লুকটিকে করে তোলে ট্রেন্ডি এবং Young।
+
+অ্যাকসেসরাইজ wisely: হেভি নেকলেসের বদলে একটি ডেলিকেট pendant necklace, বা একগুচ্ছ চুড়ি পরুন। একটি sling bag বা potli bag পারে আপনার লুককে পরিপূর্ণতা দিতে।
+
+ড্রাপিং স্টাইল: গতানুগতিক ড্রাপের বাইরে বেরিয়ে আসুন। বাঙালি ড্রাপ, গুজরাটি ড্রাপ বা ইন্ডো-ওয়েস্টার্ন fusion style-ও try করতে পারেন।
+
+আপনার অহম শাড়িটি আপনার ব্যক্তিত্বেরই একটি extension। এটিকে আপনার নিজের মতো করে উপস্থাপন করুন।</p>
+                    
+                    
+                    <img src="assets/bl 5.jpg" alt="New York Fashion Week">
+                    
+                   
+                `
+            },
+            7: {
+                title: " অহম-এর অঙ্গীকার: গুণগত মান, কারুশিল্প এবং আপনাদের প্রতি",
+                image: "assets/bl 6.jpg",
+                tag: "Style Tips",
+                date: "February 14, 2023",
+                author: "Daniel Lee",
+                comments: "19",
+                category: "guides",
+                content: `
+                    <p>অহম শুধু শাড়ি বিক্রি করে না, আমরা বিক্রি করি বিশ্বাস, সম্পর্ক এবং একটি স্বপ্ন। আমাদের প্রতিশ্রুতি তিনটি স্তম্ভের উপর দাঁড়িয়ে আছে:
+
+১. অবিচ্ছিন্ন গুণগত মান: আমরা আমাদের প্রতিটি পণ্য carefully-curate করি। কাপড়ের নরমত্ব, সেলাইয়ের পারফেকশন এবং রঙের স্থায়িত্ব – সবদিকেই আমরা রাখি কড়া নজর।
+২. কারিগরদের Empowerment: আমরা আমাদের কারিগরদের ন্যায্য মজুরি দেই এবং তাদের শিল্পকে সম্মান করি। আমরা চাই তাদের এই মহান শিল্প বেঁচে থাকুক।
+৩. গ্রাহক সন্তুষ্টি: আপনার সন্তুষ্টিই是我们的首要任务。সহজ রিটার্ন পলিসি, নিরাপদ প্যাকেজিং এবং সময়মতো ডেলিভারি আমাদের দায়িত্ববোধেরই অংশ।
+
+আপনার প্রতি আস্থা এবং সমর্থনের জন্য অহম পরিবারের পক্ষ থেকে অশেষ ধন্যবাদ। বাংলার এই সাংস্কৃতিক যাত্রায় আমাদের সঙ্গী থাকুন।</p>
+                    
+                   
+                    
+                    <img src="assets/bl 6.jpg" alt="Capsule Wardrobe">
+                    
+                  
+                `
+            }
+        };
+
+        // DOM elements
+        const blogPostModal = document.getElementById('blog-post-modal');
+        const closeBlogPost = document.getElementById('close-blog-post');
+        const modalImage = document.getElementById('modal-image');
+        const modalTag = document.getElementById('modal-tag');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDate = document.getElementById('modal-date');
+        const modalAuthor = document.getElementById('modal-author');
+        const modalComments = document.getElementById('modal-comments');
+        const modalBody = document.getElementById('modal-body');
+        const readMoreButtons = document.querySelectorAll('.read-more');
+        const popularPosts = document.querySelectorAll('.popular-post');
+        const categories = document.querySelectorAll('.categories-list a');
+        const tags = document.querySelectorAll('.tag');
+        const searchForm = document.getElementById('blog-search');
+        const newsletterForm = document.getElementById('blog-newsletter');
+
+        // Open blog post modal
+        function openBlogPost(id) {
+            const post = blogPosts[id];
+            if (!post) return;
+            
+            modalImage.src = post.image;
+            modalTag.textContent = post.tag;
+            modalTitle.textContent = post.title;
+            modalDate.textContent = post.date;
+            modalAuthor.textContent = post.author;
+            modalComments.textContent = post.comments;
+            modalBody.innerHTML = post.content;
+            
+            blogPostModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close blog post modal
+        function closeModal() {
+            blogPostModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Event listeners
+        readMoreButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const postId = this.getAttribute('data-id');
+                openBlogPost(postId);
+            });
+        });
+
+        popularPosts.forEach(post => {
+            post.addEventListener('click', function() {
+                const postId = this.getAttribute('data-id');
+                openBlogPost(postId);
+            });
+        });
+
+        closeBlogPost.addEventListener('click', closeModal);
+
+        blogPostModal.addEventListener('click', function(e) {
+            if (e.target === blogPostModal) {
+                closeModal();
+            }
+        });
+
+        // Category filtering
+        categories.forEach(category => {
+            category.addEventListener('click', function() {
+                const categoryName = this.getAttribute('data-category');
+                // In a real implementation, this would filter the blog posts
+                alert(`Filtering by category: ${categoryName}`);
+            });
+        });
+
+        // Tag filtering
+        tags.forEach(tag => {
+            tag.addEventListener('click', function() {
+                const tagName = this.getAttribute('data-tag');
+                // In a real implementation, this would filter the blog posts
+                alert(`Filtering by tag: ${tagName}`);
+            });
+        });
+
+        // Search functionality
+        searchForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const searchTerm = this.querySelector('input').value;
+            if (searchTerm.trim() !== '') {
+                alert(`Searching for: ${searchTerm}`);
+                // In a real implementation, this would filter the blog posts
+            }
+        });
+
+        // Newsletter subscription
+        newsletterForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input').value;
+            if (email.trim() !== '') {
+                alert(`Thank you for subscribing with: ${email}`);
+                this.querySelector('input').value = '';
+            }
+        });
+
+        // Set current year in footer
+        document.getElementById('footer-year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
