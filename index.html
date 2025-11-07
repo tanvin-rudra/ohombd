@@ -10,10 +10,16 @@
 </head>
 <body>
     <!-- Header Section -->
-    <header>
+     <header>
         <div class="container">
             <div class="header-top">
-                <div class="logo"><img src="assets/Gemini_Generated_Image_uqnm26uqnm26uqnm.png" alt=""></div>
+                <div class="logo"><img src="assets/Gemini_Generated_Image_uqnm26uqnm26uqnm.png" alt="StyleVogue Logo"></div>
+                
+                <!-- Mobile Menu Toggle Button -->
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
                 <div class="search-bar">
                     <input type="text" placeholder="Search for products...">
                     <button><i class="fas fa-search"></i></button>
@@ -34,10 +40,17 @@
                     </div>
                 </div>
             </div>
-            <nav class="main-nav">
+            
+            <!-- Mobile Navigation Overlay -->
+            <div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
+            
+            <nav class="main-nav" id="main-nav">
+                <button class="close-mobile-nav" id="close-mobile-nav">
+                    <i class="fas fa-times"></i>
+                </button>
                 <ul class="nav-links">
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="shop.html">shop</a></li>
+                    <li><a href="shop.html">Shop</a></li>
                     <li><a href="blog.html">Blog</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
@@ -469,5 +482,58 @@
     </div>
 
     <script src="script.js"></script>
+
+     <script>
+        // Mobile Navigation Toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const mainNav = document.getElementById('main-nav');
+            const closeMobileNav = document.getElementById('close-mobile-nav');
+            const mobileNavOverlay = document.getElementById('mobile-nav-overlay');
+            
+            if (mobileMenuToggle) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    mainNav.classList.add('active');
+                    mobileNavOverlay.classList.add('active');
+                    document.body.style.overflow = 'hidden'; // Prevent scrolling
+                });
+            }
+            
+            if (closeMobileNav) {
+                closeMobileNav.addEventListener('click', function() {
+                    mainNav.classList.remove('active');
+                    mobileNavOverlay.classList.remove('active');
+                    document.body.style.overflow = ''; // Restore scrolling
+                });
+            }
+            
+            if (mobileNavOverlay) {
+                mobileNavOverlay.addEventListener('click', function() {
+                    mainNav.classList.remove('active');
+                    mobileNavOverlay.classList.remove('active');
+                    document.body.style.overflow = ''; // Restore scrolling
+                });
+            }
+            
+            // Close mobile nav when clicking on a link
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mainNav.classList.remove('active');
+                    mobileNavOverlay.classList.remove('active');
+                    document.body.style.overflow = ''; // Restore scrolling
+                });
+            });
+            
+            // Close mobile nav on window resize if it becomes larger
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    mainNav.classList.remove('active');
+                    mobileNavOverlay.classList.remove('active');
+                    document.body.style.overflow = ''; // Restore scrolling
+                }
+            });
+        });
+    </script>
 </body>
 </html>
