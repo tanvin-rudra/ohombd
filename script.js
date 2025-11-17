@@ -5,6 +5,110 @@ document.addEventListener('DOMContentLoaded', function() {
     // ---------------------------
     const featuredProducts = [
         {
+            id: 9,
+            name: "কটন মিক্সড হাফ সিল্ক, ব্লাউজ পিস সহ",
+            price: 2100,
+            oldPrice: null,
+            image: "assets/new 2.jpg",
+            category: "Women",
+            badge: "New",
+            rating: { stars: 4.5, count: 24 },
+            sku: "FD-001",
+            stock: 12,
+            description: "কটন মিক্সড হাফ সিল্ক, ব্লাউজ পিস সহ---------🌸বৈশিষ্ট্য : উচ্চমানের কাপড়, ত্বকে আরামদায়ক, হাতে বোনা ঐতিহ্যবাহী নকশা, যে কোনো উৎসব, অনুষ্ঠান বা বিশেষ দিনে পরার উপযোগী, দীর্ঘস্থায়ী ও সহজে ব্যবহারযোগ্য"
+        },
+        {
+            id: 10,
+            name: "পিওর কটন। জরি কাজের। ব্লাউজ পিস সহ।",
+            price: 1800,
+            oldPrice: null,
+            image: "assets/new 1.jpg",
+            category: "Women",
+            badge: "New",
+            rating: { stars: 4.5, count: 24 },
+            sku: "FD-001",
+            stock: 12,
+            description: "পিওর কটন। জরি কাজের। ব্লাউজ পিস সহ।---------🌸বৈশিষ্ট্য : উচ্চমানের কাপড়, ত্বকে আরামদায়ক, হাতে বোনা ঐতিহ্যবাহী নকশা, যে কোনো উৎসব, অনুষ্ঠান বা বিশেষ দিনে পরার উপযোগী, দীর্ঘস্থায়ী ও সহজে ব্যবহারযোগ্য"
+        },
+        {
+            id: 11,
+            name: "১৪ হাতের শাড়ী। ম্যটেরিয়াল পিওর কটন",
+            price: 1280,
+            oldPrice: null,
+            image: "assets/new 4.jpg",
+            category: "Women",
+            badge: "New",
+            rating: { stars: 4.5, count: 24 },
+            sku: "FD-001",
+            stock: 12,
+            description: "১৪ হাতের শাড়ী। ম্যটেরিয়াল পিওর কটন---------🌸বৈশিষ্ট্য : উচ্চমানের কাপড়, ত্বকে আরামদায়ক, হাতে বোনা ঐতিহ্যবাহী নকশা, যে কোনো উৎসব, অনুষ্ঠান বা বিশেষ দিনে পরার উপযোগী, দীর্ঘস্থায়ী ও সহজে ব্যবহারযোগ্য"
+        },
+         {
+            id: 12,
+            name: "১৪ হাতের শাড়ী। ম্যটেরিয়াল পিওর কটন",
+            price: 1280,
+            oldPrice: null,
+            image: "assets/new 3.jpg",
+            category: "Women",
+            badge: "New",
+            rating: { stars: 4.5, count: 24 },
+            sku: "FD-001",
+            stock: 12,
+            description: "১৪ হাতের শাড়ী। ম্যটেরিয়াল পিওর কটন---------🌸বৈশিষ্ট্য : উচ্চমানের কাপড়, ত্বকে আরামদায়ক, হাতে বোনা ঐতিহ্যবাহী নকশা, যে কোনো উৎসব, অনুষ্ঠান বা বিশেষ দিনে পরার উপযোগী, দীর্ঘস্থায়ী ও সহজে ব্যবহারযোগ্য"
+        },
+         {
+            id: 13,
+            name: "১৪ হাতের শাড়ী। ম্যটেরিয়াল পিওর কটন",
+            price: 1280,
+            oldPrice: null,
+            image: "assets/new 5.jpg",
+            category: "Women",
+            badge: "New",
+            rating: { stars: 4.5, count: 24 },
+            sku: "FD-001",
+            stock: 12,
+            description: "১৪ হাতের শাড়ী। ম্যটেরিয়াল পিওর কটন---------🌸বৈশিষ্ট্য : উচ্চমানের কাপড়, ত্বকে আরামদায়ক, হাতে বোনা ঐতিহ্যবাহী নকশা, যে কোনো উৎসব, অনুষ্ঠান বা বিশেষ দিনে পরার উপযোগী, দীর্ঘস্থায়ী ও সহজে ব্যবহারযোগ্য"
+        },
+         {
+            id: 14,
+            name: "১৪ হাতের শাড়ী। ম্যটেরিয়াল পিওর কটন",
+            price: 1280,
+            oldPrice: null,
+            image: "assets/new 7.jpg",
+            category: "Women",
+            badge: "New",
+            rating: { stars: 4.5, count: 24 },
+            sku: "FD-001",
+            stock: 12,
+            description: "১৪ হাতের শাড়ী। ম্যটেরিয়াল পিওর কটন---------🌸বৈশিষ্ট্য : উচ্চমানের কাপড়, ত্বকে আরামদায়ক, হাতে বোনা ঐতিহ্যবাহী নকশা, যে কোনো উৎসব, অনুষ্ঠান বা বিশেষ দিনে পরার উপযোগী, দীর্ঘস্থায়ী ও সহজে ব্যবহারযোগ্য"
+        },
+        {
+            id: 15,
+            name: "১৪ হাতের শাড়ী। ম্যটেরিয়াল পিওর কটন",
+            price: 1280,
+            oldPrice: null,
+            image: "assets/new 6.jpg",
+            category: "Women",
+            badge: "New",
+            rating: { stars: 4.5, count: 24 },
+            sku: "FD-001",
+            stock: 12,
+            description: "১৪ হাতের শাড়ী। ম্যটেরিয়াল পিওর কটন---------🌸বৈশিষ্ট্য : উচ্চমানের কাপড়, ত্বকে আরামদায়ক, হাতে বোনা ঐতিহ্যবাহী নকশা, যে কোনো উৎসব, অনুষ্ঠান বা বিশেষ দিনে পরার উপযোগী, দীর্ঘস্থায়ী ও সহজে ব্যবহারযোগ্য"
+        },
+        {
+            id: 16,
+            name: "১৪ হাতের শাড়ী। ম্যটেরিয়াল পিওর কটন",
+            price: 1280,
+            oldPrice: null,
+            image: "assets/new 8.jpg",
+            category: "Women",
+            badge: "New",
+            rating: { stars: 4.5, count: 24 },
+            sku: "FD-001",
+            stock: 12,
+            description: "১৪ হাতের শাড়ী। ম্যটেরিয়াল পিওর কটন---------🌸বৈশিষ্ট্য : উচ্চমানের কাপড়, ত্বকে আরামদায়ক, হাতে বোনা ঐতিহ্যবাহী নকশা, যে কোনো উৎসব, অনুষ্ঠান বা বিশেষ দিনে পরার উপযোগী, দীর্ঘস্থায়ী ও সহজে ব্যবহারযোগ্য"
+        },
+        {
             id: 1,
             name: "sare",
             price: 1990,
@@ -46,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             id: 4,
             name: "panjabi",
-            price: 1299,
+            price: 79.99,
             oldPrice: null,
             image: "assets/fp 4.jpg",
             category: "Women",
@@ -225,7 +329,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 201,
             name: "ভিআইপি সিল্ক",
             category: "creative",
-            price: 1299,
+            price: 89.99,
             oldPrice: 1199,
             discount: "25% OFF",
             image: "assets/last p 7.jpg",
@@ -1091,5 +1195,4 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     init();
-
 });
