@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | StyleVogue</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f4f6f9;
+            display: flex;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: #1e2b3c;
+            color: white;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+            transition: 0.3s;
+        }
+
+        .sidebar-header {
+            padding: 25px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+
+        .sidebar-header h2 {
+            color: #7ac142;
+            font-size: 24px;
+        }
+
+        .sidebar-header p {
+            font-size: 12px;
+            opacity: 0.7;
+            margin-top: 5px;
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+
+        .menu-item {
+            padding: 15px 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .menu-item i {
+            width: 20px;
+            font-size: 18px;
+        }
+
+        .menu-item:hover, .menu-item.active {
+            background: rgba(122, 193, 66, 0.2);
+            color: #7ac142;
+            border-left: 4px solid #7ac142;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 30px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            background: white;
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .header h1 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        .admin-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .admin-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: #7ac142;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        /* Dashboard Cards */
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-info h3 {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .card-info .number {
+            font-size: 32px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(122, 193, 66, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #7ac142;
+        }
+
+        /* Section Styles */
+        .section {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .section-header h2 {
+            font-size: 20px;
+            color: #333;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .btn-primary {
+            background: #7ac142;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #6aac37;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .btn-edit {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .btn-edit:hover {
+            background: #e0a800;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .form-group input, 
+        .form-group textarea, 
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: #7ac142;
+            outline: none;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        /* Table Styles */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            padding: 15px;
+            background: #f8f9fa;
+            color: #555;
+            font-weight: 600;
+            border-bottom: 2px solid #ddd;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .product-image-small {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: 0.3s;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 30px;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .modal-close:hover {
+            color: #333;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #28a745;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            z-index: 2000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast.error {
+            background: #dc3545;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 0;
+                overflow: hidden;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .dashboard-cards {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .dashboard-cards {
+                grid-template-columns: 1fr;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Login Page */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-box h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .login-box .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-box .logo img {
+            height: 80px;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: #7ac142;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .login-btn:hover {
+            background: #6aac37;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="login-page" class="login-container">
+        <div class="login-box">
+            <div class="logo">
+                <img src="assets/Gemini_Generated_Image_uqnm26uqnm26uqnm.png" alt="StyleVogue">
+            </div>
+            <h2>Admin Login</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" required>
+                </div>
+                <button type="submit" class="login-btn">Login</button>
+            </form>
+            <p style="text-align: center; margin-top: 20px; color: #666; font-size: 14px;">
+                Default: admin / admin123
+            </p>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="admin-panel" class="hidden">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>StyleVogue</h2>
+                <p>Admin Panel</p>
+            </div>
+            <div class="sidebar-menu">
+                <div class="menu-item active" data-section="dashboard">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </div>
+                <div class="menu-item" data-section="products">
+                    <i class="fas fa-box"></i>
+                    <span>Products</span>
+                </div>
+                <div class="menu-item" data-section="categories">
+                    <i class="fas fa-tags"></i>
+                    <span>Categories</span>
+                </div>
+                <div class="menu-item" data-section="orders">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Orders</span>
+                </div>
+                <div class="menu-item" data-section="settings">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </div>
+                <div class="menu-item" id="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <h1 id="page-title">Dashboard</h1>
+                <div class="admin-info">
+                    <span>Welcome, Admin</span>
+                    <div class="admin-avatar">A</div>
+                </div>
+            </div>
+
+            <!-- Dashboard Section -->
+            <div id="dashboard-section">
+                <div class="dashboard-cards">
+                    <div class="card">
+                        <div class="card-info">
+                            <h3>Total Products</h3>
+                            <div class="number" id="total-products">0</div>
+                        </div>
+                        <div class="card-icon">
+                            <i class="fas fa-box"></i>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-info">
+                            <h3>Total Orders</h3>
+                            <div class="number" id="total-orders">0</div>
+                        </div>
+                        <div class="card-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-info">
+                            <h3>Total Revenue</h3>
+                            <div class="number" id="total-revenue">$0</div>
+                        </div>
+                        <div class="card-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-info">
+                            <h3>Categories</h3>
+                            <div class="number" id="total-categories">0</div>
+                        </div>
+                        <div class="card-icon">
+                            <i class="fas fa-tags"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <h2>Recent Orders</h2>
+                        <button class="btn btn-primary" onclick="showSection('orders')">View All</button>
+                    </div>
+                    <div class="table-container">
+                        <table id="recent-orders-table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Date</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="5" style="text-align: center;">No orders yet</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Products Section -->
+            <div id="products-section" class="hidden">
+                <div class="section">
+                    <div class="section-header">
+                        <h2>Manage Products</h2>
+                        <button class="btn btn-primary" onclick="openProductModal()">
+                            <i class="fas fa-plus"></i> Add New Product
+                        </button>
+                    </div>
+                    <div class="table-container">
+                        <table id="products-table">
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Name</th>
+                                    <th>Category</th>
+                                    <th>Price</th>
+                                    <th>Stock</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="products-table-body">
+                                <!-- Products will be inserted here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Categories Section -->
+            <div id="categories-section" class="hidden">
+                <div class="section">
+                    <div class="section-header">
+                        <h2>Manage Categories</h2>
+                        <button class="btn btn-primary" onclick="openCategoryModal()">
+                            <i class="fas fa-plus"></i> Add New Category
+                        </button>
+                    </div>
+                    <div class="table-container">
+                        <table id="categories-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Category Name</th>
+                                    <th>Product Count</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="categories-table-body">
+                                <!-- Categories will be inserted here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Orders Section -->
+            <div id="orders-section" class="hidden">
+                <div class="section">
+                    <div class="section-header">
+                        <h2>All Orders</h2>
+                    </div>
+                    <div class="table-container">
+                        <table id="orders-table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Date</th>
+                                    <th>Items</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="orders-table-body">
+                                <tr>
+                                    <td colspan="7" style="text-align: center;">No orders yet</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Section -->
+            <div id="settings-section" class="hidden">
+                <div class="section">
+                    <div class="section-header">
+                        <h2>Settings</h2>
+                    </div>
+                    <form id="settings-form">
+                        <div class="form-group">
+                            <label for="store-name">Store Name</label>
+                            <input type="text" id="store-name" value="StyleVogue">
+                        </div>
+                        <div class="form-group">
+                            <label for="store-email">Store Email</label>
+                            <input type="email" id="store-email" value="support@stylevogue.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="store-phone">Store Phone</label>
+                            <input type="text" id="store-phone" value="+1 234 567 890">
+                        </div>
+                        <div class="form-group">
+                            <label for="store-address">Store Address</label>
+                            <input type="text" id="store-address" value="123 Fashion Ave, New York">
+                        </div>
+                        <div class="form-group">
+                            <label for="admin-password">Change Password</label>
+                            <input type="password" id="admin-password" placeholder="New password">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Settings</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Modal -->
+    <div class="modal" id="product-modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeProductModal()">&times;</span>
+            <h2 id="modal-title">Add New Product</h2>
+            <form id="product-form">
+                <input type="hidden" id="product-id">
+                
+                <div class="form-group">
+                    <label for="product-name">Product Name *</label>
+                    <input type="text" id="product-name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="product-category">Category *</label>
+                    <select id="product-category" required>
+                        <option value="">Select Category</option>
+                    </select>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="product-price">Price *</label>
+                        <input type="number" id="product-price" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="product-old-price">Old Price (Optional)</label>
+                        <input type="number" id="product-old-price" step="0.01">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="product-stock">Stock *</label>
+                        <input type="number" id="product-stock" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="product-badge">Badge (New/Sale)</label>
+                        <input type="text" id="product-badge">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="product-image">Image URL *</label>
+                    <input type="url" id="product-image" required>
+                    <small style="color: #666;">Enter the full URL to the product image</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="product-description">Description *</label>
+                    <textarea id="product-description" rows="4" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="product-sku">SKU</label>
+                    <input type="text" id="product-sku">
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Save Product</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Category Modal -->
+    <div class="modal" id="category-modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeCategoryModal()">&times;</span>
+            <h2>Add New Category</h2>
+            <form id="category-form">
+                <input type="hidden" id="category-id">
+                
+                <div class="form-group">
+                    <label for="category-name">Category Name *</label>
+                    <input type="text" id="category-name" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Save Category</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast"></div>
+
+    <script>
+        // ==================== STATE MANAGEMENT ====================
+        let products = [];
+        let categories = [];
+        let orders = [];
+        let isLoggedIn = false;
+
+        // Default admin credentials
+        const ADMIN_USERNAME = 'admin';
+        const ADMIN_PASSWORD = 'admin123';
+
+        // ==================== INITIALIZATION ====================
+        function init() {
+            loadFromStorage();
+            checkLoginStatus();
+            renderCategoriesDropdown();
+            renderProductsTable();
+            renderCategoriesTable();
+            updateDashboardStats();
+        }
+
+        // Load data from localStorage
+        function loadFromStorage() {
+            // Load products
+            const savedProducts = localStorage.getItem('stylevogue_products');
+            if (savedProducts) {
+                products = JSON.parse(savedProducts);
+            } else {
+                // Initialize with your existing products from script.js
+                products = [
+                    {
+                        id: 1,
+                        name: "sare",
+                        price: 1990,
+                        oldPrice: 69.99,
+                        image: "assets/fp 1.jpg",
+                        category: "Women",
+                        badge: "New",
+                        sku: "FD-001",
+                        stock: 12,
+                        description: "🌸বৈশিষ্ট্য : উচ্চমানের কাপড়, ত্বকে আরামদায়ক, হাতে বোনা ঐতিহ্যবাহী নকশা"
+                    },
+                    {
+                        id: 2,
+                        name: "sare",
+                        price: 1300,
+                        oldPrice: null,
+                        image: "assets/fp 2.jpg",
+                        category: "Womens",
+                        badge: null,
+                        sku: "MS-002",
+                        stock: 20,
+                        description: "🌸বৈশিষ্ট্য : উচ্চমানের কাপড়, ত্বকে আরামদায়ক"
+                    },
+                    // Add more products as needed
+                ];
+            }
+
+            // Load categories
+            const savedCategories = localStorage.getItem('stylevogue_categories');
+            if (savedCategories) {
+                categories = JSON.parse(savedCategories);
+            } else {
+                // Default categories
+                categories = [
+                    { id: 1, name: 'Women' },
+                    { id: 2, name: 'Men' },
+                    { id: 3, name: 'Accessories' },
+                    { id: 4, name: 'Footwear' }
+                ];
+            }
+
+            // Load orders
+            const savedOrders = localStorage.getItem('stylevogue_orders');
+            if (savedOrders) {
+                orders = JSON.parse(savedOrders);
+            }
+        }
+
+        // Save data to localStorage
+        function saveToStorage() {
+            localStorage.setItem('stylevogue_products', JSON.stringify(products));
+            localStorage.setItem('stylevogue_categories', JSON.stringify(categories));
+            localStorage.setItem('stylevogue_orders', JSON.stringify(orders));
+        }
+
+        // ==================== AUTHENTICATION ====================
+        function checkLoginStatus() {
+            isLoggedIn = localStorage.getItem('stylevogue_admin_logged_in') === 'true';
+            if (isLoggedIn) {
+                document.getElementById('login-page').classList.add('hidden');
+                document.getElementById('admin-panel').classList.remove('hidden');
+            } else {
+                document.getElementById('login-page').classList.remove('hidden');
+                document.getElementById('admin-panel').classList.add('hidden');
+            }
+        }
+
+        // Login form handler
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+                localStorage.setItem('stylevogue_admin_logged_in', 'true');
+                isLoggedIn = true;
+                checkLoginStatus();
+                showToast('Login successful!', 'success');
+            } else {
+                showToast('Invalid credentials!', 'error');
+            }
+        });
+
+        // Logout
+        document.getElementById('logout-btn').addEventListener('click', function() {
+            localStorage.removeItem('stylevogue_admin_logged_in');
+            isLoggedIn = false;
+            checkLoginStatus();
+            showToast('Logged out successfully', 'success');
+        });
+
+        // ==================== NAVIGATION ====================
+        document.querySelectorAll('.menu-item[data-section]').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+                showSection(this.dataset.section);
+            });
+        });
+
+        function showSection(section) {
+            document.getElementById('dashboard-section').classList.add('hidden');
+            document.getElementById('products-section').classList.add('hidden');
+            document.getElementById('categories-section').classList.add('hidden');
+            document.getElementById('orders-section').classList.add('hidden');
+            document.getElementById('settings-section').classList.add('hidden');
+
+            document.getElementById(`${section}-section`).classList.remove('hidden');
+            document.getElementById('page-title').textContent = section.charAt(0).toUpperCase() + section.slice(1);
+
+            if (section === 'products') renderProductsTable();
+            if (section === 'categories') renderCategoriesTable();
+            if (section === 'orders') renderOrdersTable();
+            if (section === 'dashboard') updateDashboardStats();
+        }
+
+        // Make showSection available globally
+        window.showSection = showSection;
+
+        // ==================== DASHBOARD ====================
+        function updateDashboardStats() {
+            document.getElementById('total-products').textContent = products.length;
+            document.getElementById('total-orders').textContent = orders.length;
+            document.getElementById('total-categories').textContent = categories.length;
+
+            const totalRevenue = orders.reduce((sum, order) => sum + (order.total || 0), 0);
+            document.getElementById('total-revenue').textContent = `$${totalRevenue.toFixed(2)}`;
+
+            // Recent orders table
+            const recentOrders = orders.slice(0, 5);
+            const tbody = document.querySelector('#recent-orders-table tbody');
+            if (recentOrders.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center;">No orders yet</td></tr>';
+            } else {
+                tbody.innerHTML = recentOrders.map(order => `
+                    <tr>
+                        <td>#${order.id}</td>
+                        <td>${order.customerName || 'N/A'}</td>
+                        <td>${new Date(order.date).toLocaleDateString()}</td>
+                        <td>$${order.total.toFixed(2)}</td>
+                        <td><span style="color: ${order.status === 'completed' ? '#28a745' : '#ffc107'}">${order.status || 'pending'}</span></td>
+                    </tr>
+                `).join('');
+            }
+        }
+
+        // ==================== PRODUCTS MANAGEMENT ====================
+        function renderProductsTable() {
+            const tbody = document.getElementById('products-table-body');
+            tbody.innerHTML = products.map(product => `
+                <tr>
+                    <td><img src="${product.image}" alt="${product.name}" class="product-image-small" onerror="this.src='https://via.placeholder.com/60'"></td>
+                    <td>${product.name}</td>
+                    <td>${product.category}</td>
+                    <td>$${product.price}</td>
+                    <td>${product.stock}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="action-btn btn-edit" onclick="editProduct(${product.id})">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="action-btn btn-danger" onclick="deleteProduct(${product.id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function renderCategoriesDropdown() {
+            const select = document.getElementById('product-category');
+            select.innerHTML = '<option value="">Select Category</option>' + 
+                categories.map(cat => `<option value="${cat.name}">${cat.name}</option>`).join('');
+        }
+
+        function openProductModal(productId = null) {
+            document.getElementById('modal-title').textContent = productId ? 'Edit Product' : 'Add New Product';
+            document.getElementById('product-form').reset();
+            document.getElementById('product-id').value = '';
+
+            if (productId) {
+                const product = products.find(p => p.id === productId);
+                if (product) {
+                    document.getElementById('product-id').value = product.id;
+                    document.getElementById('product-name').value = product.name;
+                    document.getElementById('product-category').value = product.category;
+                    document.getElementById('product-price').value = product.price;
+                    document.getElementById('product-old-price').value = product.oldPrice || '';
+                    document.getElementById('product-stock').value = product.stock;
+                    document.getElementById('product-badge').value = product.badge || '';
+                    document.getElementById('product-image').value = product.image;
+                    document.getElementById('product-description').value = product.description;
+                    document.getElementById('product-sku').value = product.sku || '';
+                }
+            }
+
+            document.getElementById('product-modal').classList.add('active');
+        }
+
+        function closeProductModal() {
+            document.getElementById('product-modal').classList.remove('active');
+        }
+
+        // Product form submit
+        document.getElementById('product-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const productId = document.getElementById('product-id').value;
+            const productData = {
+                name: document.getElementById('product-name').value,
+                category: document.getElementById('product-category').value,
+                price: parseFloat(document.getElementById('product-price').value),
+                oldPrice: document.getElementById('product-old-price').value ? parseFloat(document.getElementById('product-old-price').value) : null,
+                stock: parseInt(document.getElementById('product-stock').value),
+                badge: document.getElementById('product-badge').value || null,
+                image: document.getElementById('product-image').value,
+                description: document.getElementById('product-description').value,
+                sku: document.getElementById('product-sku').value || `PRD-${Math.floor(Math.random() * 1000)}`,
+                rating: { stars: 4.5, count: 0 }
+            };
+
+            if (productId) {
+                // Update existing product
+                const index = products.findIndex(p => p.id === parseInt(productId));
+                if (index !== -1) {
+                    products[index] = { ...products[index], ...productData };
+                    showToast('Product updated successfully!');
+                }
+            } else {
+                // Add new product
+                const newId = Math.max(...products.map(p => p.id), 0) + 1;
+                products.push({ id: newId, ...productData });
+                showToast('Product added successfully!');
+            }
+
+            saveToStorage();
+            renderProductsTable();
+            updateDashboardStats();
+            closeProductModal();
+        });
+
+        function editProduct(id) {
+            openProductModal(id);
+        }
+
+        function deleteProduct(id) {
+            if (confirm('Are you sure you want to delete this product?')) {
+                products = products.filter(p => p.id !== id);
+                saveToStorage();
+                renderProductsTable();
+                updateDashboardStats();
+                showToast('Product deleted successfully!');
+            }
+        }
+
+        // ==================== CATEGORIES MANAGEMENT ====================
+        function renderCategoriesTable() {
+            const tbody = document.getElementById('categories-table-body');
+            tbody.innerHTML = categories.map(cat => {
+                const productCount = products.filter(p => p.category === cat.name).length;
+                return `
+                    <tr>
+                        <td>${cat.id}</td>
+                        <td>${cat.name}</td>
+                        <td>${productCount}</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="action-btn btn-edit" onclick="editCategory(${cat.id})">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn btn-danger" onclick="deleteCategory(${cat.id})">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function openCategoryModal(categoryId = null) {
+            document.getElementById('category-form').reset();
+            document.getElementById('category-id').value = '';
+
+            if (categoryId) {
+                const category = categories.find(c => c.id === categoryId);
+                if (category) {
+                    document.getElementById('category-id').value = category.id;
+                    document.getElementById('category-name').value = category.name;
+                }
+            }
+
+            document.getElementById('category-modal').classList.add('active');
+        }
+
+        function closeCategoryModal() {
+            document.getElementById('category-modal').classList.remove('active');
+        }
+
+        // Category form submit
+        document.getElementById('category-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const categoryId = document.getElementById('category-id').value;
+            const categoryName = document.getElementById('category-name').value;
+
+            if (categoryId) {
+                // Update existing category
+                const index = categories.findIndex(c => c.id === parseInt(categoryId));
+                if (index !== -1) {
+                    categories[index].name = categoryName;
+                    showToast('Category updated successfully!');
+                }
+            } else {
+                // Add new category
+                const newId = Math.max(...categories.map(c => c.id), 0) + 1;
+                categories.push({ id: newId, name: categoryName });
+                showToast('Category added successfully!');
+            }
+
+            saveToStorage();
+            renderCategoriesTable();
+            renderCategoriesDropdown();
+            updateDashboardStats();
+            closeCategoryModal();
+        });
+
+        function editCategory(id) {
+            openCategoryModal(id);
+        }
+
+        function deleteCategory(id) {
+            const category = categories.find(c => c.id === id);
+            const productsInCategory = products.filter(p => p.category === category.name);
+            
+            if (productsInCategory.length > 0) {
+                alert(`Cannot delete category "${category.name}" because it has ${productsInCategory.length} products. Move or delete the products first.`);
+                return;
+            }
+
+            if (confirm('Are you sure you want to delete this category?')) {
+                categories = categories.filter(c => c.id !== id);
+                saveToStorage();
+                renderCategoriesTable();
+                renderCategoriesDropdown();
+                updateDashboardStats();
+                showToast('Category deleted successfully!');
+            }
+        }
+
+        // ==================== ORDERS MANAGEMENT ====================
+        function renderOrdersTable() {
+            const tbody = document.getElementById('orders-table-body');
+            
+            if (orders.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align: center;">No orders yet</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = orders.map(order => `
+                <tr>
+                    <td>#${order.id}</td>
+                    <td>${order.customerName || 'N/A'}</td>
+                    <td>${new Date(order.date).toLocaleDateString()}</td>
+                    <td>${order.items ? order.items.length : 0} items</td>
+                    <td>$${order.total.toFixed(2)}</td>
+                    <td>
+                        <select onchange="updateOrderStatus(${order.id}, this.value)" style="padding: 5px; border-radius: 3px;">
+                            <option value="pending" ${order.status === 'pending' ? 'selected' : ''}>Pending</option>
+                            <option value="processing" ${order.status === 'processing' ? 'selected' : ''}>Processing</option>
+                            <option value="shipped" ${order.status === 'shipped' ? 'selected' : ''}>Shipped</option>
+                            <option value="delivered" ${order.status === 'delivered' ? 'selected' : ''}>Delivered</option>
+                            <option value="cancelled" ${order.status === 'cancelled' ? 'selected' : ''}>Cancelled</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button class="action-btn btn-danger" onclick="deleteOrder(${order.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function updateOrderStatus(orderId, status) {
+            const order = orders.find(o => o.id === orderId);
+            if (order) {
+                order.status = status;
+                saveToStorage();
+                showToast('Order status updated!');
+            }
+        }
+
+        function deleteOrder(orderId) {
+            if (confirm('Are you sure you want to delete this order?')) {
+                orders = orders.filter(o => o.id !== orderId);
+                saveToStorage();
+                renderOrdersTable();
+                updateDashboardStats();
+                showToast('Order deleted successfully!');
+            }
+        }
+
+        // ==================== SETTINGS ====================
+        document.getElementById('settings-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const settings = {
+                storeName: document.getElementById('store-name').value,
+                storeEmail: document.getElementById('store-email').value,
+                storePhone: document.getElementById('store-phone').value,
+                storeAddress: document.getElementById('store-address').value
+            };
+
+            localStorage.setItem('stylevogue_settings', JSON.stringify(settings));
+            
+            const newPassword = document.getElementById('admin-password').value;
+            if (newPassword) {
+                // In a real app, you'd hash this. For demo, we'll just note it
+                alert('Password changed! (Demo: Password would be updated in a real backend)');
+            }
+
+            showToast('Settings saved successfully!');
+        });
+
+        // ==================== TOAST NOTIFICATION ====================
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast show ${type === 'error' ? 'error' : ''}`;
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // ==================== EXPORT DATA (Backup) ====================
+        function exportData() {
+            const data = {
+                products,
+                categories,
+                orders,
+                settings: localStorage.getItem('stylevogue_settings')
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `stylevogue-backup-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            
+            showToast('Data exported successfully!');
+        }
+
+        // ==================== IMPORT DATA (Restore) ====================
+        function importData() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        
+                        if (data.products) products = data.products;
+                        if (data.categories) categories = data.categories;
+                        if (data.orders) orders = data.orders;
+                        if (data.settings) localStorage.setItem('stylevogue_settings', data.settings);
+                        
+                        saveToStorage();
+                        renderProductsTable();
+                        renderCategoriesTable();
+                        renderCategoriesDropdown();
+                        updateDashboardStats();
+                        
+                        showToast('Data imported successfully!');
+                    } catch (error) {
+                        showToast('Invalid backup file!', 'error');
+                    }
+                };
+                
+                reader.readAsText(file);
+            };
+            
+            input.click();
+        }
+
+        // Add export/import buttons to settings
+        function addBackupButtons() {
+            const settingsSection = document.getElementById('settings-section');
+            const backupDiv = document.createElement('div');
+            backupDiv.className = 'section';
+            backupDiv.innerHTML = `
+                <div class="section-header">
+                    <h2>Backup & Restore</h2>
+                </div>
+                <div style="display: flex; gap: 20px;">
+                    <button class="btn btn-primary" onclick="exportData()">
+                        <i class="fas fa-download"></i> Export Data
+                    </button>
+                    <button class="btn btn-edit" onclick="importData()">
+                        <i class="fas fa-upload"></i> Import Data
+                    </button>
+                </div>
+            `;
+            settingsSection.appendChild(backupDiv);
+        }
+
+        // Initialize
+        init();
+        addBackupButtons();
+
+        // Make functions globally available
+        window.openProductModal = openProductModal;
+        window.closeProductModal = closeProductModal;
+        window.openCategoryModal = openCategoryModal;
+        window.closeCategoryModal = closeCategoryModal;
+        window.editProduct = editProduct;
+        window.deleteProduct = deleteProduct;
+        window.editCategory = editCategory;
+        window.deleteCategory = deleteCategory;
+        window.updateOrderStatus = updateOrderStatus;
+        window.deleteOrder = deleteOrder;
+        window.exportData = exportData;
+        window.importData = importData;
+    </script>
+</body>
+</html>
