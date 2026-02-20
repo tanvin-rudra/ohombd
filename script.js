@@ -1,103 +1,114 @@
-// Updated script.js - Loads products from localStorage
-document.addEventListener('DOMContentLoaded', function() {
-    // Global products array (will be populated from localStorage)
-    let featuredProducts = [];
-    let discountProducts = [];
-    let shoesProducts = [];
+// ========== SYNC WITH ADMIN PANEL ==========
+// Load products from localStorage (admin panel)
+let products = JSON.parse(localStorage.getItem('styleVogueProducts')) || [];
 
-    // Load products from localStorage
-    function loadProductsFromStorage() {
-        const savedProducts = localStorage.getItem('styleVogueProducts');
-        if (savedProducts) {
-            try {
-                const allProducts = JSON.parse(savedProducts);
-                
-                // Split products into different categories
-                featuredProducts = allProducts.slice(0, 8); // First 8 products for featured
-                discountProducts = allProducts.filter(p => p.discount || p.oldPrice).slice(0, 8);
-                shoesProducts = allProducts.slice(8, 16); // Next 8 products
-                
-                // If we don't have enough products, add defaults
-                if (featuredProducts.length === 0) {
-                    setDefaultProducts();
-                }
-            } catch (e) {
-                console.error('Error loading products', e);
-                setDefaultProducts();
-            }
-        } else {
-            setDefaultProducts();
+// If no products in localStorage, initialize with default products
+if (products.length === 0) {
+    products = [
+        {
+            id: 1,
+            name: "কটন মিক্সড হাফ সিল্ক, ব্লাউজ পিস সহ",
+            price: 2100,
+            oldPrice: null,
+            image: "assets/new 2.jpg",
+            category: "Women",
+            badge: "New",
+            rating: { stars: 4.5, count: 24 },
+            sku: "FD-001",
+            stock: 12,
+            description: "কটন মিক্সড হাফ সিল্ক, ব্লাউজ পিস সহ---------🌸বৈশিষ্ট্য : উচ্চমানের কাপড়, ত্বকে আরামদায়ক, হাতে বোনা ঐতিহ্যবাহী নকশা, যে কোনো উৎসব, অনুষ্ঠান বা বিশেষ দিনে পরার উপযোগী, দীর্ঘস্থায়ী ও সহজে ব্যবহারযোগ্য",
+            featured: true
+        },
+        {
+            id: 2,
+            name: "পিওর কটন। জরি কাজের। ব্লাউজ পিস সহ।",
+            price: 1800,
+            oldPrice: null,
+            image: "assets/new 1.jpg",
+            category: "Women",
+            badge: "New",
+            rating: { stars: 4.5, count: 24 },
+            sku: "FD-002",
+            stock: 12,
+            description: "পিওর কটন। জরি কাজের। ব্লাউজ পিস সহ।---------🌸বৈশিষ্ট্য : উচ্চমানের কাপড়, ত্বকে আরামদায়ক, হাতে বোনা ঐতিহ্যবাহী নকশা, যে কোনো উৎসব, অনুষ্ঠান বা বিশেষ দিনে পরার উপযোগী, দীর্ঘস্থায়ী ও সহজে ব্যবহারযোগ্য",
+            featured: true
+        },
+        {
+            id: 3,
+            name: "১৪ হাতের শাড়ী। ম্যটেরিয়াল পিওর কটন",
+            price: 1280,
+            oldPrice: null,
+            image: "assets/new 4.jpg",
+            category: "Women",
+            badge: "New",
+            rating: { stars: 4.5, count: 24 },
+            sku: "FD-003",
+            stock: 12,
+            description: "১৪ হাতের শাড়ী। ম্যটেরিয়াল পিওর কটন---------🌸বৈশিষ্ট্য : উচ্চমানের কাপড়, ত্বকে আরামদায়ক, হাতে বোনা ঐতিহ্যবাহী নকশা, যে কোনো উৎসব, অনুষ্ঠান বা বিশেষ দিনে পরার উপযোগী, দীর্ঘস্থায়ী ও সহজে ব্যবহারযোগ্য",
+            featured: true
+        },
+        {
+            id: 4,
+            name: "পাঞ্জাবি",
+            price: 1900,
+            oldPrice: 2200,
+            image: "assets/pan 1.jpg",
+            category: "Men",
+            badge: "Sale",
+            rating: { stars: 4.2, count: 15 },
+            sku: "MN-001",
+            stock: 8,
+            description: "উচ্চমানের পাঞ্জাবি",
+            discount: "72% OFF"
+        },
+        {
+            id: 5,
+            name: "ভিআইপি সিল্ক",
+            price: 89.99,
+            oldPrice: 1199,
+            image: "assets/last p 7.jpg",
+            category: "Women",
+            badge: "New",
+            rating: { stars: 4.8, count: 42 },
+            sku: "SH-201",
+            stock: 14,
+            description: "🌸বৈশিষ্ট্য : উচ্চমানের কাপড়, ত্বকে আরামদায়ক, হাতে বোনা ঐতিহ্যবাহী নকশা, যে কোনো উৎসব, অনুষ্ঠান বা বিশেষ দিনে পরার উপযোগী, দীর্ঘস্থায়ী ও সহজে ব্যবহারযোগ্য"
+        },
+        {
+            id: 6,
+            name: "শাড়ি",
+            price: 1299,
+            oldPrice: null,
+            image: "assets/last p 6.jpg",
+            category: "Women",
+            badge: "New",
+            rating: { stars: 4.5, count: 28 },
+            sku: "SH-202",
+            stock: 7,
+            description: "🌸বৈশিষ্ট্য : উচ্চমানের কাপড়, ত্বকে আরামদায়ক, হাতে বোনা ঐতিহ্যবাহী নকশা, যে কোনো উৎসব, অনুষ্ঠান বা বিশেষ দিনে পরার উপযোগী, দীর্ঘস্থায়ী ও সহজে ব্যবহারযোগ্য."
         }
+    ];
+    localStorage.setItem('styleVogueProducts', JSON.stringify(products));
+}
+
+// Listen for changes from admin panel (in other tabs)
+window.addEventListener('storage', function(e) {
+    if (e.key === 'styleVogueProducts') {
+        products = JSON.parse(e.newValue) || [];
+        // Refresh all product displays
+        renderFeaturedProducts();
+        renderDiscountProducts();
+        renderShoesProducts();
+        // Also refresh cart if open
+        updateCartUI();
     }
+});
 
-    // Default products if localStorage is empty
-    function setDefaultProducts() {
-        featuredProducts = [
-            {
-                id: 1,
-                name: "কটন মিক্সড হাফ সিল্ক",
-                price: 2100,
-                oldPrice: null,
-                image: "assets/new 2.jpg",
-                category: "Women",
-                badge: "New",
-                rating: { stars: 4.5, count: 24 },
-                sku: "FD-001",
-                stock: 12,
-                description: "উচ্চমানের কাপড়, ত্বকে আরামদায়ক"
-            },
-            {
-                id: 2,
-                name: "পিওর কটন জরি কাজের",
-                price: 1800,
-                oldPrice: null,
-                image: "assets/new 1.jpg",
-                category: "Women",
-                badge: "New",
-                rating: { stars: 4.5, count: 24 },
-                sku: "FD-002",
-                stock: 15,
-                description: "পিওর কটন। জরি কাজের। ব্লাউজ পিস সহ"
-            }
-        ];
-        
-        discountProducts = [
-            {
-                id: 101,
-                name: "পাঞ্জাবি",
-                category: "Men",
-                price: 1900,
-                oldPrice: 2500,
-                discount: "24% OFF",
-                image: "assets/pan 1.jpg",
-                rating: { stars: 4.2, count: 15 },
-                sku: "DJ-101",
-                stock: 50,
-                description: "উচ্চমানের কাপড়"
-            }
-        ];
-        
-        shoesProducts = [
-            {
-                id: 201,
-                name: "ভিআইপি সিল্ক",
-                category: "Women",
-                price: 89.99,
-                oldPrice: 119.99,
-                discount: "25% OFF",
-                image: "assets/last p 7.jpg",
-                rating: { stars: 4.8, count: 42 },
-                sku: "SH-201",
-                stock: 14,
-                description: "উচ্চমানের কাপড়"
-            }
-        ];
-    }
-
-    // Load products first
-    loadProductsFromStorage();
-
-    // Helper functions
+// JavaScript for interactive elements
+document.addEventListener('DOMContentLoaded', function() {
+    // ---------------------------
+    // Helper: escape HTML & rating HTML
+    // ---------------------------
     function escapeHTML(str) {
         if (!str && str !== 0) return '';
         return String(str).replace(/[&<>"']/g, function(m) {
@@ -125,12 +136,30 @@ document.addEventListener('DOMContentLoaded', function() {
         return starsHTML;
     }
 
-    // Global Event Delegation
+    // ---------------------------
+    // Separate products by type
+    // ---------------------------
+    function getFeaturedProducts() {
+        return products.filter(p => p.featured || p.badge === 'New' || p.badge === 'Sale').slice(0, 8);
+    }
+
+    function getDiscountProducts() {
+        return products.filter(p => p.badge === 'Sale' || p.oldPrice).slice(0, 8);
+    }
+
+    function getShoesProducts() {
+        return products.filter(p => p.category === 'Footwear' || p.category === 'Shoes').slice(0, 8);
+    }
+
+    // ---------------------------
+    // Global Event Delegation for Add to Cart
+    // ---------------------------
     function setupGlobalEventListeners() {
         document.addEventListener('click', function(e) {
+            // Handle featured products Add to Cart
             if (e.target.classList.contains('add-to-cart') || e.target.closest('.add-to-cart')) {
                 const btn = e.target.classList.contains('add-to-cart') ? e.target : e.target.closest('.add-to-cart');
-                const card = btn.closest('.product, .discount-product');
+                const card = btn.closest('.product');
                 if (!card) return;
                 
                 const id = card.dataset.id;
@@ -140,19 +169,40 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 addToCart(id, name, price, image);
                 e.stopPropagation();
+                return;
+            }
+            
+            // Handle discount products Add to Cart
+            if (e.target.classList.contains('discount-add-to-cart') || e.target.closest('.discount-add-to-cart')) {
+                const btn = e.target.classList.contains('discount-add-to-cart') ? e.target : e.target.closest('.discount-add-to-cart');
+                const card = btn.closest('.discount-product');
+                if (!card) return;
+                
+                const id = card.dataset.id;
+                const name = card.dataset.name;
+                const price = parseFloat(card.dataset.price);
+                const image = card.dataset.image;
+                
+                addToCart(id, name, price, image);
+                e.stopPropagation();
+                return;
             }
         });
     }
 
-    // Render functions
+    // ---------------------------
+    // Render functions using products from admin panel
+    // ---------------------------
     function renderFeaturedProducts() {
         const productsContainer = document.getElementById('featured-products');
         if (!productsContainer) return;
         
-        productsContainer.innerHTML = featuredProducts.map(product => `
+        const featuredProductsList = getFeaturedProducts();
+        
+        productsContainer.innerHTML = featuredProductsList.map(product => `
             <div class="product" data-id="${product.id}" data-name="${escapeHTML(product.name)}" data-price="${product.price}" data-image="${product.image}" data-category="${escapeHTML(product.category)}" data-rating="${product.rating?.stars || 4.5}" data-rating-count="${product.rating?.count || 0}" data-oldprice="${product.oldPrice || ''}" data-sku="${product.sku || ''}" data-stock="${product.stock || 10}" data-description="${escapeHTML(product.description || '')}">
                 <div class="product-image">
-                    <img src="${product.image}" alt="${escapeHTML(product.name)}" onerror="this.src='https://via.placeholder.com/300x400'">
+                    <img src="${product.image}" alt="${escapeHTML(product.name)}">
                     ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
                     <div class="product-actions">
                         <div class="product-action product-quickview" title="Quick view"><i class="fas fa-search"></i></div>
@@ -161,14 +211,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                 </div>
                 <div class="product-info">
-                    <div class="product-category">${product.category}</div>
+                    <div class="product-category">${product.category || 'Uncategorized'}</div>
                     <h3 class="product-title">${product.name}</h3>
                     <div class="product-price">
-                        <span class="current-price">$${product.price}</span>
-                        ${product.oldPrice ? `<span class="old-price">$${product.oldPrice}</span>` : ''}
+                        <span class="current-price">৳${product.price}</span>
+                        ${product.oldPrice ? `<span class="old-price">৳${product.oldPrice}</span>` : ''}
                     </div>
                     <div class="product-rating">
-                        ${generateRatingStars(product.rating || {stars: 4.5, count: 24})}
+                        ${generateRatingStars(product.rating || { stars: 4.5, count: 0 })}
                     </div>
                     <button class="add-to-cart">Add to Cart</button>
                 </div>
@@ -182,21 +232,23 @@ document.addEventListener('DOMContentLoaded', function() {
         const discountSliderTrack = document.getElementById('discount-slider-track');
         if (!discountSliderTrack) return;
 
-        discountSliderTrack.innerHTML = discountProducts.map(product => `
+        const discountProductsList = getDiscountProducts();
+
+        discountSliderTrack.innerHTML = discountProductsList.map(product => `
             <div class="discount-product" data-id="${product.id}" data-name="${escapeHTML(product.name)}" data-price="${product.price}" data-image="${product.image}" data-category="${escapeHTML(product.category)}" data-rating="${product.rating?.stars || 4.5}" data-rating-count="${product.rating?.count || 0}" data-oldprice="${product.oldPrice || ''}" data-sku="${product.sku || ''}" data-stock="${product.stock || 10}" data-description="${escapeHTML(product.description || '')}">
                 <div class="discount-product-image">
-                    <img src="${product.image}" alt="${escapeHTML(product.name)}" onerror="this.src='https://via.placeholder.com/300x400'">
-                    <span class="discount-badge">${product.discount || 'SALE'}</span>
+                    <img src="${product.image}" alt="${escapeHTML(product.name)}">
+                    ${product.discount ? `<span class="discount-badge">${product.discount}</span>` : (product.oldPrice ? '<span class="discount-badge">SALE</span>' : '')}
                 </div>
                 <div class="discount-product-info">
                     <h3 class="discount-product-title">${product.name}</h3>
-                    <div class="discount-product-category">${product.category}</div>
+                    <div class="discount-product-category">${product.category || 'Uncategorized'}</div>
                     <div class="discount-product-price">
-                        <span class="discount-price">$${product.price}</span>
-                        <span class="original-price">$${product.oldPrice}</span>
+                        <span class="discount-price">৳${product.price}</span>
+                        ${product.oldPrice ? `<span class="original-price">৳${product.oldPrice}</span>` : ''}
                     </div>
                     <div class="discount-product-rating">
-                        ${generateRatingStars(product.rating || {stars: 4.5, count: 24})}
+                        ${generateRatingStars(product.rating || { stars: 4.5, count: 0 })}
                     </div>
                     <button class="discount-add-to-cart">Add to Cart</button>
                 </div>
@@ -210,22 +262,24 @@ document.addEventListener('DOMContentLoaded', function() {
         const shoesSliderTrack = document.getElementById('shoes-slider-track');
         if (!shoesSliderTrack) return;
 
-        shoesSliderTrack.innerHTML = shoesProducts.map(product => `
+        const shoesProductsList = getShoesProducts();
+
+        shoesSliderTrack.innerHTML = shoesProductsList.map(product => `
             <div class="discount-product" data-id="${product.id}" data-name="${escapeHTML(product.name)}" data-price="${product.price}" data-image="${product.image}" data-category="${escapeHTML(product.category)}" data-rating="${product.rating?.stars || 4.5}" data-rating-count="${product.rating?.count || 0}" data-oldprice="${product.oldPrice || ''}" data-sku="${product.sku || ''}" data-stock="${product.stock || 10}" data-description="${escapeHTML(product.description || '')}">
                 <div class="discount-product-image">
-                    <img src="${product.image}" alt="${escapeHTML(product.name)}" onerror="this.src='https://via.placeholder.com/300x400'">
-                    ${product.discount ? `<span class="discount-badge">${product.discount}</span>` : ''}
+                    <img src="${product.image}" alt="${escapeHTML(product.name)}">
+                    ${product.discount ? `<span class="discount-badge">${product.discount}</span>` : (product.oldPrice ? '<span class="discount-badge">SALE</span>' : '')}
                     ${product.badge ? `<span class="product-badge" style="top: 10px; right: 10px; left: auto; background-color: var(--primary-color);">${product.badge}</span>` : ''}
                 </div>
                 <div class="discount-product-info">
                     <h3 class="discount-product-title">${product.name}</h3>
-                    <div class="discount-product-category">${product.category}</div>
+                    <div class="discount-product-category">${product.category || 'Uncategorized'}</div>
                     <div class="discount-product-price">
-                        <span class="discount-price">$${product.price}</span>
-                        ${product.oldPrice ? `<span class="original-price">$${product.oldPrice}</span>` : ''}
+                        <span class="discount-price">৳${product.price}</span>
+                        ${product.oldPrice ? `<span class="original-price">৳${product.oldPrice}</span>` : ''}
                     </div>
                     <div class="discount-product-rating">
-                        ${generateRatingStars(product.rating || {stars: 4.5, count: 24})}
+                        ${generateRatingStars(product.rating || { stars: 4.5, count: 0 })}
                     </div>
                     <button class="discount-add-to-cart">Add to Cart</button>
                 </div>
@@ -235,7 +289,9 @@ document.addEventListener('DOMContentLoaded', function() {
         attachQuickViewHandlers();
     }
 
-    // Slider init functions (keep your existing slider code)
+    // ---------------------------
+    // Slider init
+    // ---------------------------
     function initDiscountSlider() {
         const track = document.getElementById('discount-slider-track');
         const prevBtn = document.querySelector('.prev-btn');
@@ -244,7 +300,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!track || !prevBtn || !nextBtn) return;
 
         let currentPosition = 0;
-        const productWidth = 250 + 20;
+        const productWidth = 250 + 20; // width + gap
+        const visibleProducts = Math.floor(track.parentElement.offsetWidth / productWidth) || 3;
+        const maxPosition = Math.max((getDiscountProducts().length - visibleProducts) * productWidth, 0);
 
         prevBtn.addEventListener('click', () => {
             currentPosition = Math.min(currentPosition + productWidth * 2, 0);
@@ -252,9 +310,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         nextBtn.addEventListener('click', () => {
-            const maxPosition = Math.max((discountProducts.length - 3) * productWidth, 0);
             currentPosition = Math.max(currentPosition - productWidth * 2, -maxPosition);
             track.style.transform = `translateX(${currentPosition}px)`;
+        });
+
+        window.addEventListener('resize', () => {
+            track.style.transform = 'translateX(0)';
+            currentPosition = 0;
         });
     }
 
@@ -266,7 +328,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!track || !prevBtn || !nextBtn) return;
 
         let currentPosition = 0;
-        const productWidth = 250 + 20;
+        const productWidth = 250 + 20; // width + gap
+        const visibleProducts = Math.floor(track.parentElement.offsetWidth / productWidth) || 3;
+        const maxPosition = Math.max((getShoesProducts().length - visibleProducts) * productWidth, 0);
 
         prevBtn.addEventListener('click', () => {
             currentPosition = Math.min(currentPosition + productWidth * 2, 0);
@@ -274,19 +338,38 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         nextBtn.addEventListener('click', () => {
-            const maxPosition = Math.max((shoesProducts.length - 3) * productWidth, 0);
             currentPosition = Math.max(currentPosition - productWidth * 2, -maxPosition);
             track.style.transform = `translateX(${currentPosition}px)`;
         });
+
+        window.addEventListener('resize', () => {
+            track.style.transform = 'translateX(0)';
+            currentPosition = 0;
+        });
     }
 
-    // Cart functionality (keep your existing cart code)
+    // ---------------------------
+    // Cart functionality
+    // ---------------------------
     const cart = {
         items: [],
         total: 0,
         count: 0
     };
 
+    // DOM Elements
+    const cartIcon = document.getElementById('cart-icon');
+    const cartModal = document.getElementById('cart-modal');
+    const closeCart = document.getElementById('close-cart');
+    const cartItemsContainer = document.getElementById('cart-items');
+    const emptyCartMessage = document.getElementById('empty-cart-message');
+    const cartSummary = document.getElementById('cart-summary');
+    const cartTotalPrice = document.getElementById('cart-total-price');
+    const cartCount = document.querySelector('.cart-count');
+    const continueShopping = document.getElementById('continue-shopping');
+    const checkoutBtn = document.getElementById('checkout-btn');
+
+    // Initialize cart from localStorage
     function initCart() {
         const savedCart = localStorage.getItem('styleVogueCart');
         if (savedCart) {
@@ -297,8 +380,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 cart.count = parsedCart.count || 0;
                 updateCartUI();
             } catch (err) {
-                console.error('Failed to parse cart', err);
+                console.error('Failed to parse cart from localStorage', err);
             }
+        } else {
+            updateCartUI();
         }
     }
 
@@ -328,77 +413,80 @@ document.addEventListener('DOMContentLoaded', function() {
         showToast(`${name} added to cart!`);
     }
 
+    function removeFromCart(id) {
+        const idStr = String(id);
+        cart.items = cart.items.filter(item => String(item.id) !== idStr);
+        updateCartTotals();
+        updateCartUI();
+        saveCart();
+    }
+
+    function updateQuantity(id, change) {
+        const idStr = String(id);
+        const item = cart.items.find(item => String(item.id) === idStr);
+
+        if (item) {
+            item.quantity += change;
+            if (item.quantity <= 0) {
+                removeFromCart(id);
+                return;
+            }
+            updateCartTotals();
+            updateCartUI();
+            saveCart();
+        }
+    }
+
     function updateCartTotals() {
         cart.total = cart.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
         cart.count = cart.items.reduce((sum, item) => sum + item.quantity, 0);
     }
 
     function updateCartUI() {
-        const cartCount = document.querySelector('.cart-count');
-        if (cartCount) cartCount.textContent = cart.count;
-        
-        const cartTotalPrice = document.getElementById('cart-total-price');
+        cartCount.textContent = cart.count;
+        if (cart.items.length === 0) {
+            if (emptyCartMessage) emptyCartMessage.style.display = 'block';
+            if (cartSummary) cartSummary.style.display = 'none';
+        } else {
+            if (emptyCartMessage) emptyCartMessage.style.display = 'none';
+            if (cartSummary) cartSummary.style.display = 'block';
+        }
         if (cartTotalPrice) cartTotalPrice.textContent = cart.total.toFixed(2);
-        
         renderCartItems();
     }
 
     function renderCartItems() {
-        const cartItemsContainer = document.getElementById('cart-items');
-        const emptyCartMessage = document.getElementById('empty-cart-message');
-        const cartSummary = document.getElementById('cart-summary');
-        
         if (!cartItemsContainer) return;
-        
-        if (cart.items.length === 0) {
-            if (emptyCartMessage) emptyCartMessage.style.display = 'block';
-            if (cartSummary) cartSummary.style.display = 'none';
-            cartItemsContainer.innerHTML = '';
-            return;
-        }
-        
-        if (emptyCartMessage) emptyCartMessage.style.display = 'none';
-        if (cartSummary) cartSummary.style.display = 'block';
-        
-        cartItemsContainer.innerHTML = cart.items.map(item => `
-            <div class="cart-item">
+        cartItemsContainer.innerHTML = '';
+        cart.items.forEach(item => {
+            const cartItemElement = document.createElement('div');
+            cartItemElement.className = 'cart-item';
+            cartItemElement.innerHTML = `
                 <div class="cart-item-image">
-                    <img src="${item.image}" alt="${escapeHTML(item.name)}" onerror="this.src='https://via.placeholder.com/80'">
+                    <img src="${item.image}" alt="${escapeHTML(item.name)}">
                 </div>
                 <div class="cart-item-details">
                     <h4 class="cart-item-title">${escapeHTML(item.name)}</h4>
-                    <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+                    <div class="cart-item-price">৳${(item.price).toFixed(2)}</div>
                     <div class="cart-item-quantity">
                         <button class="quantity-btn" data-action="decrease" data-id="${item.id}">-</button>
                         <div class="quantity-value">${item.quantity}</div>
                         <button class="quantity-btn" data-action="increase" data-id="${item.id}">+</button>
                     </div>
                     <div>
-                        <a class="remove-item" data-id="${item.id}" href="#"><i class="fas fa-trash"></i> Remove</a>
+                        <a class="remove-item" data-id="${item.id}" href="#"> <i class="fas fa-trash"></i> Remove</a>
                     </div>
                 </div>
-            </div>
-        `).join('');
+            `;
+            cartItemsContainer.appendChild(cartItemElement);
+        });
 
-        // Attach quantity handlers
+        // attach quantity and remove handlers
         document.querySelectorAll('.quantity-btn').forEach(btn => {
             btn.addEventListener('click', function(e) {
                 const id = this.dataset.id;
                 const action = this.dataset.action;
-                const item = cart.items.find(i => String(i.id) === id);
-                if (item) {
-                    if (action === 'increase') {
-                        item.quantity += 1;
-                    } else {
-                        item.quantity -= 1;
-                        if (item.quantity <= 0) {
-                            cart.items = cart.items.filter(i => String(i.id) !== id);
-                        }
-                    }
-                    updateCartTotals();
-                    updateCartUI();
-                    saveCart();
-                }
+                updateQuantity(id, action === 'increase' ? 1 : -1);
             });
         });
 
@@ -406,15 +494,14 @@ document.addEventListener('DOMContentLoaded', function() {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
                 const id = this.dataset.id;
-                cart.items = cart.items.filter(i => String(i.id) !== id);
-                updateCartTotals();
-                updateCartUI();
-                saveCart();
+                removeFromCart(id);
             });
         });
     }
 
-    // Toast function
+    // ---------------------------
+    // Toast messages
+    // ---------------------------
     function showToast(message, duration = 2200) {
         const container = document.getElementById('toast-container');
         if (!container) return;
@@ -424,13 +511,13 @@ document.addEventListener('DOMContentLoaded', function() {
         container.appendChild(toast);
         setTimeout(() => {
             toast.classList.remove('show');
-            setTimeout(() => {
-                try { container.removeChild(toast); } catch(e) {}
-            }, 300);
+            try { container.removeChild(toast); } catch(e){}
         }, duration);
     }
 
-    // Quick View Popup
+    // ---------------------------
+    // Quick View popup logic
+    // ---------------------------
     const popup = document.getElementById('product-popup');
     const popupClose = document.getElementById('popup-close');
     const popupImage = document.getElementById('popup-image');
@@ -449,118 +536,377 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let currentProduct = null;
 
+    // Attach handlers to "Quick View" icons
     function attachQuickViewHandlers() {
-        document.querySelectorAll('.product-quickview, .discount-product .discount-product-image').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const card = btn.closest('.product, .discount-product');
-                if (!card) return;
-                
-                const product = {
-                    id: card.dataset.id,
-                    name: card.dataset.name,
-                    image: card.dataset.image,
-                    category: card.dataset.category,
-                    price: card.dataset.price,
-                    oldPrice: card.dataset.oldprice || '',
-                    rating: card.dataset.rating || 4.5,
-                    ratingCount: card.dataset.ratingCount || 24,
-                    sku: card.dataset.sku || 'SKU-001',
-                    stock: card.dataset.stock || 10,
-                    description: card.dataset.description || ''
-                };
-                
-                openProductPopup(product);
-                e.stopPropagation();
-            });
+      document.querySelectorAll('.product-quickview, .discount-product .discount-product-image, .discount-product .discount-product-info').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          // find closest product card
+          const card = btn.closest('.product, .discount-product');
+          if (!card) return;
+          const product = {
+            id: card.dataset.id,
+            name: card.dataset.name,
+            image: card.dataset.image,
+            category: card.dataset.category,
+            price: card.dataset.price,
+            oldPrice: card.dataset.oldprice || '',
+            rating: card.dataset.rating || 0,
+            sku: card.dataset.sku || '',
+            stock: card.dataset.stock || '',
+            description: card.dataset.description || ''
+          };
+          openProductPopup(product);
+          e.stopPropagation();
         });
+      });
+
+      // Also ensure quickview on product-image icon is attached if newly rendered
+      document.querySelectorAll('.product .product-quickview').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+              const card = btn.closest('.product');
+              if (!card) return;
+              const product = {
+                  id: card.dataset.id,
+                  name: card.dataset.name,
+                  image: card.dataset.image,
+                  category: card.dataset.category,
+                  price: card.dataset.price,
+                  oldPrice: card.dataset.oldprice || '',
+                  rating: card.dataset.rating || 0,
+                  sku: card.dataset.sku || '',
+                  stock: card.dataset.stock || '',
+                  description: card.dataset.description || ''
+              };
+              openProductPopup(product);
+              e.stopPropagation();
+          });
+      });
     }
 
+    // Open popup with product details
     function openProductPopup(product) {
-        currentProduct = product;
-        popupImage.src = product.image || 'https://via.placeholder.com/400x500';
-        popupTitle.textContent = product.name || '';
-        popupCategory.textContent = product.category || '';
-        popupRating.innerHTML = generateRatingStars({ 
-            stars: Number(product.rating) || 4.5, 
-            count: Number(product.ratingCount) || 24 
-        });
-        popupPrice.textContent = `$${Number(product.price).toFixed(2)}`;
-        popupOldPrice.textContent = product.oldPrice ? `$${Number(product.oldPrice).toFixed(2)}` : '';
-        popupSku.textContent = product.sku || '#0000';
-        popupStock.textContent = (Number(product.stock) > 0) ? `In Stock (${product.stock})` : 'Out of stock';
-        popupDescription.textContent = product.description || '';
-        qtyValue.value = 1;
+      currentProduct = product;
+      popupImage.src = product.image || '';
+      popupTitle.textContent = product.name || '';
+      popupCategory.textContent = product.category || '';
+      popupRating.innerHTML = generateRatingStars({ stars: Number(product.rating) || 0, count:  (product.rating ? (Number(product.rating)*10).toFixed(0) : 0) });
+      popupPrice.textContent = `৳${Number(product.price).toFixed(2)}`;
+      popupOldPrice.textContent = product.oldPrice ? `৳${Number(product.oldPrice).toFixed(2)}` : '';
+      popupSku.textContent = product.sku || '#0000';
+      popupStock.textContent = (Number(product.stock) > 0) ? `In Stock (${product.stock})` : 'Out of stock';
+      popupDescription.textContent = product.description || '';
+      qtyValue.value = 1;
 
-        popup.classList.add('active');
-        popup.setAttribute('aria-hidden', 'false');
+      // reset option selections
+      document.querySelectorAll('.swatch').forEach(sw => sw.classList.remove('active'));
+      document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+
+      popup.classList.add('active');
+      popup.setAttribute('aria-hidden', 'false');
+      // trap focus optionally (basic)
+      setTimeout(() => {
+          document.getElementById('popup-add-to-cart').focus();
+      }, 150);
     }
 
-    if (popupClose) {
-        popupClose.addEventListener('click', () => {
-            popup.classList.remove('active');
-        });
-    }
-
+    // Close popup
+    if (popupClose) popupClose.addEventListener('click', () => {
+      closePopup();
+    });
     window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && popup.classList.contains('active')) {
-            popup.classList.remove('active');
-        }
+      if (e.key === 'Escape') closePopup();
+    });
+    window.addEventListener('click', (e) => {
+      if (e.target === popup) closePopup();
     });
 
-    if (qtyMinus) {
-        qtyMinus.addEventListener('click', () => {
-            let qty = parseInt(qtyValue.value) || 1;
-            if (qty > 1) qtyValue.value = qty - 1;
-        });
+    function closePopup() {
+      if (!popup) return;
+      popup.classList.remove('active');
+      popup.setAttribute('aria-hidden', 'true');
     }
 
-    if (qtyPlus) {
-        qtyPlus.addEventListener('click', () => {
-            let qty = parseInt(qtyValue.value) || 1;
-            qtyValue.value = qty + 1;
+    // Quantity controls
+    if (qtyMinus) qtyMinus.addEventListener('click', () => {
+      let qty = parseInt(qtyValue.value) || 1;
+      if (qty > 1) qtyValue.value = qty - 1;
+    });
+    if (qtyPlus) qtyPlus.addEventListener('click', () => {
+      let qty = parseInt(qtyValue.value) || 1;
+      qtyValue.value = qty + 1;
+    });
+
+    // Add to cart button (integrated)
+    if (popupAddToCart) popupAddToCart.addEventListener('click', () => {
+      const quantity = parseInt(qtyValue.value) || 1;
+      if (!currentProduct) return;
+      for (let i = 0; i < quantity; i++) {
+        addToCart(currentProduct.id, currentProduct.name, parseFloat(currentProduct.price), currentProduct.image);
+      }
+      closePopup();
+    });
+
+    // Color & size interactions
+    function initOptionInteractions() {
+      document.querySelectorAll('.swatch').forEach(s => {
+        s.addEventListener('click', () => {
+          document.querySelectorAll('.swatch').forEach(sw => sw.classList.remove('active'));
+          s.classList.add('active');
         });
-    }
+      });
 
-    if (popupAddToCart) {
-        popupAddToCart.addEventListener('click', () => {
-            const quantity = parseInt(qtyValue.value) || 1;
-            if (!currentProduct) return;
-            for (let i = 0; i < quantity; i++) {
-                addToCart(currentProduct.id, currentProduct.name, parseFloat(currentProduct.price), currentProduct.image);
-            }
-            popup.classList.remove('active');
+      document.querySelectorAll('.size-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
         });
+      });
     }
+    initOptionInteractions();
 
-    // Cart modal
-    const cartIcon = document.getElementById('cart-icon');
-    const cartModal = document.getElementById('cart-modal');
-    const closeCart = document.getElementById('close-cart');
-    const continueShopping = document.getElementById('continue-shopping');
-
-    if (cartIcon && cartModal) {
+    // ---------------------------
+    // Cart modal open/close
+    // ---------------------------
+    if (cartIcon) {
         cartIcon.addEventListener('click', () => {
             cartModal.classList.add('active');
         });
     }
-
-    if (closeCart && cartModal) {
+    if (closeCart) {
         closeCart.addEventListener('click', () => {
             cartModal.classList.remove('active');
         });
     }
-
-    if (continueShopping && cartModal) {
+    if (continueShopping) {
         continueShopping.addEventListener('click', () => {
             cartModal.classList.remove('active');
         });
     }
 
+    // Checkout redirect
+    if (checkoutBtn) {
+        checkoutBtn.addEventListener('click', () => {
+            window.location.href = 'checkout.html';
+        });
+    }
+
+    // ---------------------------
     // Footer year
+    // ---------------------------
     const footerYear = document.getElementById('footer-year');
     if (footerYear) footerYear.textContent = new Date().getFullYear();
 
-    // Initialize everything
+    // ---------------------------
+    // Search Functionality
+    // ---------------------------
+    function initSearchFunctionality() {
+        const searchInput = document.querySelector('.search-bar input');
+        const searchButton = document.querySelector('.search-bar button');
+        
+        if (!searchInput) return;
+        
+        function performSearch(query) {
+            if (!query.trim()) {
+                restoreOriginalSections();
+                return;
+            }
+            
+            const searchTerm = query.toLowerCase().trim();
+            
+            // Filter products that match the search term
+            const results = products.filter(product => 
+                product.name.toLowerCase().includes(searchTerm) ||
+                product.category.toLowerCase().includes(searchTerm) ||
+                (product.description && product.description.toLowerCase().includes(searchTerm))
+            );
+            
+            displaySearchResults(results, searchTerm);
+        }
+        
+        function restoreOriginalSections() {
+            const searchResultsSection = document.getElementById('search-results-section');
+            if (searchResultsSection) {
+                searchResultsSection.style.display = 'none';
+            }
+            
+            const sectionsToShow = [
+                '.hero',
+                '.section:not(.search-results)',
+                '.promo-banner',
+                '.discount-section',
+                '.premium-fashion-banner',
+                '.new-arrivals-shoes',
+                '.testimonials-section'
+            ];
+            
+            sectionsToShow.forEach(selector => {
+                const elements = document.querySelectorAll(selector);
+                elements.forEach(el => {
+                    el.style.display = 'block';
+                });
+            });
+        }
+        
+        function displaySearchResults(results, searchTerm) {
+            let searchResultsSection = document.getElementById('search-results-section');
+            
+            if (!searchResultsSection) {
+                searchResultsSection = document.createElement('section');
+                searchResultsSection.id = 'search-results-section';
+                searchResultsSection.className = 'section search-results';
+                searchResultsSection.innerHTML = `
+                    <div class="container">
+                        <div class="section-title">
+                            <h2>Search Results</h2>
+                            <p id="search-results-count"></p>
+                        </div>
+                        <div class="products" id="search-results-container"></div>
+                    </div>
+                `;
+                
+                const heroSection = document.querySelector('.hero');
+                heroSection.parentNode.insertBefore(searchResultsSection, heroSection.nextSibling);
+            }
+            
+            const sectionsToHide = [
+                '.categories',
+                '.promo-banner',
+                '.discount-section',
+                '.premium-fashion-banner',
+                '.new-arrivals-shoes',
+                '.testimonials-section'
+            ];
+            
+            sectionsToHide.forEach(selector => {
+                const elements = document.querySelectorAll(selector);
+                elements.forEach(el => {
+                    el.style.display = 'none';
+                });
+            });
+            
+            searchResultsSection.style.display = 'block';
+            
+            const resultsCount = document.getElementById('search-results-count');
+            resultsCount.textContent = results.length > 0 
+                ? `Found ${results.length} product(s) for "${searchTerm}"`
+                : `No products found for "${searchTerm}"`;
+            
+            const resultsContainer = document.getElementById('search-results-container');
+            
+            if (results.length > 0) {
+                resultsContainer.innerHTML = results.map(product => `
+                    <div class="product" data-id="${product.id}" data-name="${escapeHTML(product.name)}" data-price="${product.price}" data-image="${product.image}" data-category="${escapeHTML(product.category)}" data-rating="${product.rating?.stars || 4.5}" data-rating-count="${product.rating?.count || 0}" data-oldprice="${product.oldPrice || ''}" data-sku="${product.sku || ''}" data-stock="${product.stock || ''}" data-description="${escapeHTML(product.description || '')}">
+                        <div class="product-image">
+                            <img src="${product.image}" alt="${escapeHTML(product.name)}">
+                            ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
+                            ${product.discount ? `<span class="product-badge discount-badge">${product.discount}</span>` : ''}
+                            <div class="product-actions">
+                                <div class="product-action product-quickview" title="Quick view"><i class="fas fa-search"></i></div>
+                                <div class="product-action"><i class="far fa-heart"></i></div>
+                                <div class="product-action"><i class="fas fa-sync-alt"></i></div>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-category">${product.category || 'Uncategorized'}</div>
+                            <h3 class="product-title">${product.name}</h3>
+                            <div class="product-price">
+                                <span class="current-price">৳${product.price}</span>
+                                ${product.oldPrice ? `<span class="old-price">৳${product.oldPrice}</span>` : ''}
+                            </div>
+                            <div class="product-rating">
+                                ${generateRatingStars(product.rating || { stars: 4.5, count: 0 })}
+                            </div>
+                            <button class="add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                resultsContainer.innerHTML = `
+                    <div class="no-results" style="text-align: center; padding: 40px; grid-column: 1 / -1;">
+                        <i class="fas fa-search" style="font-size: 48px; color: #ccc; margin-bottom: 20px;"></i>
+                        <h3>No products found</h3>
+                        <p>Try adjusting your search terms or browse our categories.</p>
+                        <button class="btn" onclick="restoreOriginalSections()" style="margin-top: 20px;">Browse All Products</button>
+                    </div>
+                `;
+            }
+            
+            attachQuickViewHandlers();
+        }
+        
+        searchButton.addEventListener('click', () => {
+            performSearch(searchInput.value);
+        });
+        
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                performSearch(searchInput.value);
+            }
+        });
+        
+        searchInput.addEventListener('input', (e) => {
+            if (!e.target.value.trim()) {
+                restoreOriginalSections();
+            }
+        });
+        
+        window.restoreOriginalSections = restoreOriginalSections;
+    }
+
+    // ---------------------------
+    // Mobile Navigation Toggle (from index.html)
+    // ---------------------------
+    function initMobileNavigation() {
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mainNav = document.getElementById('main-nav');
+        const closeMobileNav = document.getElementById('close-mobile-nav');
+        const mobileNavOverlay = document.getElementById('mobile-nav-overlay');
+        
+        if (mobileMenuToggle) {
+            mobileMenuToggle.addEventListener('click', function() {
+                mainNav.classList.add('active');
+                mobileNavOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        }
+        
+        if (closeMobileNav) {
+            closeMobileNav.addEventListener('click', function() {
+                mainNav.classList.remove('active');
+                mobileNavOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        }
+        
+        if (mobileNavOverlay) {
+            mobileNavOverlay.addEventListener('click', function() {
+                mainNav.classList.remove('active');
+                mobileNavOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        }
+        
+        const navLinks = document.querySelectorAll('.nav-links a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                mainNav.classList.remove('active');
+                mobileNavOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+        
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                mainNav.classList.remove('active');
+                mobileNavOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    }
+
+    // ---------------------------
+    // Init everything
+    // ---------------------------
     function init() {
         setupGlobalEventListeners();
         renderFeaturedProducts();
@@ -569,7 +915,10 @@ document.addEventListener('DOMContentLoaded', function() {
         initCart();
         initDiscountSlider();
         initShoesSlider();
+        initOptionInteractions();
         attachQuickViewHandlers();
+        initSearchFunctionality();
+        initMobileNavigation();
     }
 
     init();
